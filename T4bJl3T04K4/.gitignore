@@ -1,0 +1,5 @@
+bin/Debug/net9.0-windows/
+obj/
+.vscode
+.DS_Store
+.vs
