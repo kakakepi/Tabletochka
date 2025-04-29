@@ -1,4 +1,4 @@
-bin/Debug/net9.0-windows/
+bin/
 obj/
 .vscode
 .DS_Store
