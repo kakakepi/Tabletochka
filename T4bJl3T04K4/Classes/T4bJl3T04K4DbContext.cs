@@ -16,6 +16,7 @@ namespace T4bJl3T04K4
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=your_db;Username=postgres;Password=your_password");
@@ -24,7 +25,7 @@ namespace T4bJl3T04K4
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("tabletochka");
+            modelBuilder.HasDefaultSchema("public");
 
             modelBuilder.Entity<DiseaseSymptom>()
                 .HasKey(ds => new { ds.DiseaseId, ds.SymptomId });

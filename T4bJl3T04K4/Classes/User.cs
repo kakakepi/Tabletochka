@@ -33,6 +33,11 @@ namespace T4bJl3T04K4
 
         [Column("admin")]
         public bool Admin { get; set; } = false;
+        [Column("gender")]
+        public bool Gender { get; set; } // true = муж, false = жен
+
+        [Column("date_of_birth")]
+        public DateTime? DateOfBirth { get; set; }
 
         [Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
