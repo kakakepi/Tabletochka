@@ -1,6 +1,6 @@
 ﻿namespace T4bJl3T04K4
 {
-    public partial class LoginRegistrationForm
+    public partial class Tabletochka
     {
         public class LoginData : BaseData
         {

@@ -1,6 +1,6 @@
 ﻿namespace T4bJl3T04K4
 {
-    partial class LoginRegistrationForm
+    partial class Tabletochka
     {
         /// <summary>
         /// Required designer variable.

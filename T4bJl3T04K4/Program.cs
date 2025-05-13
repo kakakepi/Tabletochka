@@ -35,7 +35,7 @@ namespace T4bJl3T04K4
 
             using (var db = new T4bJl3T04K4Db(optionsBuilder.Options))
             {
-                Application.Run(new LoginRegistrationForm(db));
+                Application.Run(new Tabletochka(db));
             }
         }
     }

@@ -14,55 +14,59 @@
 <body>
    <div class="materialContainer">
 
-      <div class="box">
-         <div class="title">LOGIN</div>
+       <div class="box">
+           <div class="title">LOGIN</div>
 
-         <div class="input">
-            <label for="name">Username</label>
-            <input type="text" name="name" id="name">
-            <span class="spin"></span>
-         </div>
+           <div class="error-message" id="loginError"></div>
 
-         <div class="input">
-            <label for="pass">Password</label>
-            <input type="password" name="pass" id="pass">
-            <span class="spin"></span>
-         </div>
+           <div class="input">
+               <label for="name">Username</label>
+               <input type="text" name="name" id="name">
+               <span class="spin"></span>
+           </div>
 
-         <div class="button login">
-            <button onclick="sendLogin()"><span>GO</span> <i class="fa fa-check"></i></button>
-         </div>
+           <div class="input">
+               <label for="pass">Password</label>
+               <input type="password" name="pass" id="pass">
+               <span class="spin"></span>
+           </div>
 
-         <a href="#" class="pass-forgot">Forgot your password?</a>
-      </div>
+           <div class="button login">
+               <button onclick="sendLogin()"><span>GO</span> <i class="fa fa-check"></i></button>
+           </div>
 
-      <div class="overbox">
-         <div class="material-button alt-2"><span class="shape"></span></div>
+           <a href="#" class="pass-forgot">Forgot your password?</a>
+       </div>
 
-         <div class="title">REGISTER</div>
+       <div class="overbox">
+           <div class="material-button alt-2"><span class="shape"></span></div>
 
-         <div class="input">
-            <label for="regname">Username</label>
-            <input type="text" name="regname" id="regname">
-            <span class="spin"></span>
-         </div>
+           <div class="title">REGISTER</div>
 
-         <div class="input">
-            <label for="regpass">Password</label>
-            <input type="password" name="regpass" id="regpass">
-            <span class="spin"></span>
-         </div>
+           <div class="error-message" id="registerError"></div>
 
-         <div class="input">
-            <label for="reregpass">Repeat Password</label>
-            <input type="password" name="reregpass" id="reregpass">
-            <span class="spin"></span>
-         </div>
+           <div class="input">
+               <label for="regname">Username</label>
+               <input type="text" name="regname" id="regname">
+               <span class="spin"></span>
+           </div>
 
-         <div class="button">
-            <button onclick="sendRegister()"><span>NEXT</span></button>
-         </div>
-      </div>
+           <div class="input">
+               <label for="regpass">Password</label>
+               <input type="password" name="regpass" id="regpass">
+               <span class="spin"></span>
+           </div>
+
+           <div class="input">
+               <label for="reregpass">Repeat Password</label>
+               <input type="password" name="reregpass" id="reregpass">
+               <span class="spin"></span>
+           </div>
+
+           <div class="button">
+               <button onclick="sendRegister()"><span>NEXT</span></button>
+           </div>
+       </div>
 
    </div>
 
@@ -70,7 +74,14 @@
    <script src="js/LoginRegistration.js"></script>
 
    <script>
-      function sendLogin() {
+       function sendLogin() {
+           window.chrome.webview.addEventListener('message', function (event) {
+               if (event.data.type === 'login-error') {
+                   document.getElementById('loginError').innerText = event.data.message;
+                   document.getElementById('loginError').style.display = 'block';
+               }
+           });
+
          var username = document.getElementById('name').value;
          var password = document.getElementById('pass').value;
          window.chrome.webview.postMessage({
@@ -80,7 +91,13 @@
          });
       }
 
-      function sendRegister() {
+       function sendRegister() {
+           window.chrome.webview.addEventListener('message', function (event) {
+               if (event.data.type === 'register-error') {
+                   document.getElementById('registerError').innerText = event.data.message;
+                   document.getElementById('registerError').style.display = 'block';
+               }
+           });
          var username = document.getElementById('regname').value;
          var password = document.getElementById('regpass').value;
          var repeatPassword = document.getElementById('reregpass').value;

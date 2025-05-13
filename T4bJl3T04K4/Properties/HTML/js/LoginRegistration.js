@@ -1,4 +1,4 @@
-$(function() {
+﻿$(function() {
 
    $(".input input").focus(function() {
 

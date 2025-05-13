@@ -32,8 +32,8 @@ namespace T4bJl3T04K4
         {
             if (!File.Exists(filePath))
             {
-                MessageBox.Show(Resources.fileDoesntExist, Resources.errorTitle,
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show(Resources.fileDoesntExist, Resources.errorTitle,
+                    //MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Process.GetCurrentProcess().Kill();
             }
 

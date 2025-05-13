@@ -34,7 +34,7 @@ namespace T4bJl3T04K4
         [Column("admin")]
         public bool Admin { get; set; } = false;
         [Column("gender")]
-        public bool Gender { get; set; } // true = муж, false = жен
+        public bool Gender { get; set; }
 
         [Column("date_of_birth")]
         public DateTime? DateOfBirth { get; set; }
