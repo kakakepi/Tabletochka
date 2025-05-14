@@ -26,7 +26,7 @@ namespace T4bJl3T04K4.Tests
         }
 
         [TestMethod()]
-        public async Task LoginAsync_NonExistingUser_NotAddLoginHistoryAsync()
+        public async Task LoginAsync_NonExistingUser_NotAddLoginHistory()
         {
             var nonExistingUser = new LoginData 
             { 
@@ -40,5 +40,44 @@ namespace T4bJl3T04K4.Tests
             Assert.AreEqual(0, countLoginHistory);
         }
 
+        [TestMethod()]
+        public async Task LoginAsync_WrongPassword_AddLoginHistoryUnsuccessful()
+        {
+            var correctPassword = "12345678";
+            var wrongPassword = "12345679";
+            var salt = _tabletochka.GenerateSalt();
+            var passwordHash = _tabletochka.HashPassword(correctPassword, salt);
+
+            var newUser = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "qwerty",
+                FirstName = "",
+                LastName = "",
+                Gender = false,
+                Picture = string.Empty,
+                DateOfBirth = DateTime.UtcNow,
+                PasswordHash = passwordHash,
+                Salt = salt,
+                CreatedAt = DateTime.UtcNow,
+                Admin = false
+            };
+
+            await _db.Users.AddAsync(newUser);
+            await _db.SaveChangesAsync();
+
+            var testUser = new LoginData
+            {
+                username = "qwerty",
+                password = wrongPassword
+            };
+
+            await _tabletochka.LoginAsync(testUser);
+
+            var loginHistory = await _db.LoginHistories
+                .Where(l => l.UserId == newUser.Id).FirstOrDefaultAsync();
+            Assert.IsNotNull(loginHistory);
+            Assert.IsFalse(loginHistory.IsSuccessful);
+        }
     }
 }
