@@ -47,7 +47,7 @@ namespace T4bJl3T04K4
             }
         }
 
-        private async Task LoginAsync(LoginData loginData)
+        public async Task LoginAsync(LoginData loginData)
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -104,7 +104,7 @@ namespace T4bJl3T04K4
             }
         }
 
-        private async Task RegisterAsync(RegisterData registerData)
+        public async Task RegisterAsync(RegisterData registerData)
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -311,7 +311,7 @@ namespace T4bJl3T04K4
             }
         }
 
-        private async Task DeletePhotoAsync()
+        public async Task DeletePhotoAsync()
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -333,7 +333,7 @@ namespace T4bJl3T04K4
             }
         }
 
-        private string GenerateSalt()
+        public string GenerateSalt()
         {
             var salt = new byte[32];
             using (var rand = RandomNumberGenerator.Create())
@@ -343,7 +343,7 @@ namespace T4bJl3T04K4
             return Convert.ToBase64String(salt);
         }
 
-        private string HashPassword(string password, string salt)
+        public string HashPassword(string password, string salt)
         {
             using (var sha256 = SHA256.Create())
             {
