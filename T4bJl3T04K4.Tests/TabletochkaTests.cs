@@ -136,5 +136,46 @@ namespace T4bJl3T04K4.Tests
 
             Assert.IsNotNull(user);
         }
+
+        [TestMethod()]
+        public async Task RegisterAsync_DuplicateUser_NotAddNewUserToDataBase()
+        {
+            var newUsername = "qwerty";
+
+            var salt = _tabletochka.GenerateSalt();
+            var passwordHash = _tabletochka.HashPassword("12345678", salt);
+
+            var newUser = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = newUsername,
+                FirstName = "",
+                LastName = "",
+                Gender = false,
+                Picture = string.Empty,
+                DateOfBirth = DateTime.UtcNow,
+                PasswordHash = passwordHash,
+                Salt = salt,
+                CreatedAt = DateTime.UtcNow,
+                Admin = false
+            };
+
+            await _db.Users.AddAsync(newUser);
+            await _db.SaveChangesAsync();
+
+            var registerData = new RegisterData
+            {
+                username = newUsername,
+                password = "12345679",
+                repeatPassword = "12345679"
+            };
+
+            await _tabletochka.RegisterAsync(registerData);
+
+            var userCount = await _db.Users
+                .CountAsync(u => u.Username == newUsername);
+
+            Assert.AreEqual(1, userCount);
+        }
     }
 }
