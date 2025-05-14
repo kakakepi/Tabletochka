@@ -79,5 +79,44 @@ namespace T4bJl3T04K4.Tests
             Assert.IsNotNull(loginHistory);
             Assert.IsFalse(loginHistory.IsSuccessful);
         }
+
+        [TestMethod()]
+        public async Task LoginAsync_correctPassword_AddLoginHistorySuccessful()
+        {
+            var correctPassword = "12345678";
+            var salt = _tabletochka.GenerateSalt();
+            var passwordHash = _tabletochka.HashPassword(correctPassword, salt);
+
+            var newUser = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "qwerty",
+                FirstName = "",
+                LastName = "",
+                Gender = false,
+                Picture = string.Empty,
+                DateOfBirth = DateTime.UtcNow,
+                PasswordHash = passwordHash,
+                Salt = salt,
+                CreatedAt = DateTime.UtcNow,
+                Admin = false
+            };
+
+            await _db.Users.AddAsync(newUser);
+            await _db.SaveChangesAsync();
+
+            var testUser = new LoginData
+            {
+                username = "qwerty",
+                password = correctPassword
+            };
+
+            await _tabletochka.LoginAsync(testUser);
+
+            var loginHistory = await _db.LoginHistories
+                .Where(l => l.UserId == newUser.Id).FirstOrDefaultAsync();
+            Assert.IsNotNull(loginHistory);
+            Assert.IsTrue(loginHistory.IsSuccessful);
+        }
     }
 }
