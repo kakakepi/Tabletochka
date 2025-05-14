@@ -75,7 +75,7 @@ namespace T4bJl3T04K4.Tests
             await _tabletochka.LoginAsync(testUser);
 
             var loginHistory = await _db.LoginHistories
-                .Where(l => l.UserId == newUser.Id).FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(l => l.UserId == newUser.Id);
             Assert.IsNotNull(loginHistory);
             Assert.IsFalse(loginHistory.IsSuccessful);
         }
@@ -114,9 +114,27 @@ namespace T4bJl3T04K4.Tests
             await _tabletochka.LoginAsync(testUser);
 
             var loginHistory = await _db.LoginHistories
-                .Where(l => l.UserId == newUser.Id).FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(l => l.UserId == newUser.Id);
             Assert.IsNotNull(loginHistory);
             Assert.IsTrue(loginHistory.IsSuccessful);
+        }
+        
+        [TestMethod()]
+        public async Task RegisterAsync_NonExistingUser_AddNewUserToDataBase()
+        {
+            var newUsername = "qwerty";
+            var registerData = new RegisterData
+            {
+                username = newUsername,
+                password = "12345678",
+                repeatPassword = "12345678"
+            };
+            await _tabletochka.RegisterAsync(registerData);
+
+            var user = await _db.Users
+                .FirstOrDefaultAsync(u => u.Username == newUsername);
+
+            Assert.IsNotNull(user);
         }
     }
 }
