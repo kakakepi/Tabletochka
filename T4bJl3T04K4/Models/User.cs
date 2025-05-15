@@ -29,7 +29,7 @@ namespace T4bJl3T04K4
         public string Salt { get; set; }
 
         [Column("picture", TypeName = "varchar")]
-        public string Picture { get; set; }
+        public string? Picture { get; set; }
 
         [Column("admin")]
         public bool Admin { get; set; } = false;
