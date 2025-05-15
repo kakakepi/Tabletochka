@@ -529,6 +529,34 @@ namespace T4bJl3T04K4.Tests
             Assert.AreEqual(1, userCount);  
         }
 
+        [TestMethod()]
+        public async Task DeleteAccountAsync_ExistingUser_UpdateDatabase()
+        {
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "username",
+                FirstName = "Firstname",
+                LastName = "Lastname",
+                Gender = false,
+                DateOfBirth = new DateTime(2006, 3, 6),
+                PasswordHash = "",
+                Salt = "",
+                Picture = "",
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            SetCurrentUserId(user.Id);
+
+            await _tabletochka.DeleteAccountAsync();
+
+            var userCount = await _db.Users.CountAsync();
+
+            Assert.AreEqual(0, userCount);
+        }
+
         private void SetCurrentUserId(Guid userId)
         {
             var idField = typeof(Tabletochka)
