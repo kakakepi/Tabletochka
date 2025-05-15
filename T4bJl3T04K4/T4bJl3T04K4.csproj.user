@@ -1,10 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="AutorisationForm.cs">
+    <Compile Update="Models\DiagnoseRequest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="RegistrationForm.cs">
+    <Compile Update="Models\BaseData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Models\BaseProfileAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Models\LoginData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Models\ProfileData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Models\RegisterData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tabletochka.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

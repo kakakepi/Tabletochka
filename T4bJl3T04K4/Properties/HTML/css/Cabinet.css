@@ -1,0 +1,266 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1&ipt=c01eaf67d5a18543a5745bcab6ac05af7becbb311d24f767f180cacd0f914f1b);
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: teal;
+    display: block;
+    width: 100%;
+}
+
+.menu-item a:hover {
+    color: #ED2553;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.materialContainer {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+}
+
+.title {
+    font-size: 34px;
+    font-weight: 700;
+    color: #ED2553;
+    margin-bottom: 40px;
+    position: relative;
+    padding-left: 50px;
+}
+
+.title:before {
+    content: "";
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ED2553;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    margin: 30px 0;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 100%;
+    position: relative;
+}
+
+.input input,
+.input select {
+    width: 100%;
+    padding: 15px 0;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    font-size: 18px;
+    background: transparent;
+    transition: 300ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.input input:focus,
+.input select:focus {
+    outline: none;
+    border-bottom-color: #ED2553;
+}
+
+.button-group {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.button {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 300ms cubic-bezier(.4, 0, .2, 1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.button.primary {
+    background: #ED2553;
+    color: white;
+}
+
+.button.secondary {
+    background: #77d6cd;
+    color: white;
+}
+
+.button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.input .spin {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: #ED2553;
+    width: 0;
+    transition: 300ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.input input:focus~.spin {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .box {
+        padding: 25px;
+        margin: 15px;
+    }
+
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.avatar-top {
+    width: 40px;
+    height: 40px;
+    background: #ED2553;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.overlay,
+.side-panel {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    transition: 0.4s;
+    z-index: 1000;
+}
+
+.overlay {
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+.side-panel {
+    right: -300px;
+    width: 300px;
+    background: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #ED2553;
+}
+
+.menu-item {
+    font-size: 18px;
+    color: teal;
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    margin-left: 20px;
+    font-size: 16px;
+}

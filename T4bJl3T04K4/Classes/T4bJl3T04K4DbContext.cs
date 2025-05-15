@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using T4bJl3T04K4;
 
 namespace T4bJl3T04K4
 {
@@ -11,20 +12,22 @@ namespace T4bJl3T04K4
         public DbSet<DiseaseSymptom> DiseaseSymptoms { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<SearchHistorySymptom> SearchHistorySymptoms { get; set; }
+        public DbSet<SystemsSymptom> SystemsSymptoms { get; set; }
+
         public T4bJl3T04K4Db(DbContextOptions<T4bJl3T04K4Db> options)
         : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=your_db;Username=postgres;Password=your_password");
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("tabletochka");
+            modelBuilder.HasDefaultSchema("public");
 
             modelBuilder.Entity<DiseaseSymptom>()
                 .HasKey(ds => new { ds.DiseaseId, ds.SymptomId });
@@ -41,6 +44,17 @@ namespace T4bJl3T04K4
                 .HasOne(lh => lh.User)
                 .WithMany(u => u.LoginHistories)
                 .HasForeignKey(lh => lh.UserId);
+            modelBuilder.Entity<SystemsSymptom>(entity =>
+            {
+                entity.ToTable("systems_symptoms");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.SystemName).HasColumnName("system_name");
+                entity.Property(e => e.SymptomId).HasColumnName("symptom_id");
+            });
+
         }
     }
 }
