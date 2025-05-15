@@ -25,7 +25,7 @@ namespace T4bJl3T04K4.Tests
             var options = new DbContextOptionsBuilder<T4bJl3T04K4Db>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             _db = new T4bJl3T04K4Db(options);
-            _tabletochka = new Tabletochka(_db);
+            _tabletochka = new TestableTabletochka(_db);
         }
 
         [TestMethod()]
