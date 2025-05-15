@@ -448,5 +448,16 @@ namespace T4bJl3T04K4.Tests
             Assert.IsNotNull(userWithoutPicture);
             Assert.IsNull(userWithoutPicture.Picture);
         }
+
+        [TestMethod()]
+        public void GenerateSalt_DifferentSalts_DifferentValues()
+        {
+            var firstSalt = _tabletochka.GenerateSalt();
+            var secondSalt = _tabletochka.GenerateSalt();
+
+            Assert.AreNotEqual(firstSalt, secondSalt);
+        }
+
+
     }
 }
