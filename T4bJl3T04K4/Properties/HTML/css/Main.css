@@ -1,0 +1,149 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1&ipt=c01eaf67d5a18543a5745bcab6ac05af7becbb311d24f767f180cacd0f914f1b);
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.avatar-top {
+    cursor: pointer;
+}
+
+.avatar-top i {
+    font-size: 24px;
+    color: #d32f2f;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 999;
+}
+
+.menu-title {
+    padding: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-item {
+    padding: 15px 20px;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu-item.exit {
+    color: red;
+}
+
+.submenu {
+    display: none;
+    padding-left: 30px;
+}
+
+.submenu div {
+    padding: 5px 0;
+}
+
+/* Main content */
+main {
+    max-width: 700px;
+    margin: 100px auto 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    color: #d32f2f;
+}
+
+select,
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+}
+
+button {
+    background-color: #d32f2f;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #b71c1c;
+}
+
+.symptoms {
+    margin-top: 20px;
+}
+
+.symptoms label {
+    display: block;
+    margin: 6px 0;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background: #ffebee;
+    color: #c62828;
+    font-weight: bold;
+    border: 1px solid #c62828;
+    border-radius: 5px;
+    display: none;
+}
+
+.result ul {
+    margin: 10px 0 0 0;
+    padding-left: 20px;
+}

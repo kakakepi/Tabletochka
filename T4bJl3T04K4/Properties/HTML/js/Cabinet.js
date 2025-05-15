@@ -93,3 +93,19 @@ window.chrome.webview.addEventListener('message', event => {
         document.querySelector('.profile-pic img').src = 'img/default-avatar.jpg';
     }
 });
+function togglePanel() {
+  const overlay = document.querySelector('.overlay');
+  const panel = document.getElementById('sidePanel');
+  if (overlay.style.display === 'block') {
+    overlay.style.display = 'none';
+    panel.style.right = '-300px';
+  } else {
+    overlay.style.display = 'block';
+    panel.style.right = '0';
+  }
+}
+
+function toggleSubmenu(id) {
+  const submenu = document.getElementById(id);
+  submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+}

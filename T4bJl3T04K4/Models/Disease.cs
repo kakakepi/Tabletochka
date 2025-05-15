@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T4bJl3T04K4
 {
@@ -12,16 +10,19 @@ namespace T4bJl3T04K4
         [Column("id")]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Required]
-        [MaxLength(50)]
-        [Column("name", TypeName = "varchar(50)")]
-        public string Name { get; set; }
+        [Column("name_en", TypeName = "varchar(50)")]
+        public string NameEn { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        [Column("description", TypeName = "varchar(100)")]
-        public string Description { get; set; }
+        [Column("name_ru", TypeName = "varchar(50)")]
+        public string NameRu { get; set; }
 
-        public virtual ICollection<DiseaseSymptom> DiseaseSymptoms { get; set; } = new List<DiseaseSymptom>();
+        [Column("description_en", TypeName = "varchar(100)")]
+        public string DescriptionEn { get; set; }
+
+        [Column("description_ru", TypeName = "varchar(100)")]
+        public string DescriptionRu { get; set; }
+
+        public ICollection<DiseaseSymptom> DiseaseSymptoms { get; set; } = new List<DiseaseSymptom>();
     }
+
 }

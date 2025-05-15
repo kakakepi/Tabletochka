@@ -27,7 +27,7 @@ namespace T4bJl3T04K4
             {
                 await webView.EnsureCoreWebView2Async(null);
                 webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
-                var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
+                var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "Main.html");
                 webView.Source = new Uri(htmlPath);
                 logger.Info("WebView2 успешно инициализирован и загружена страница LoginRegistration.html.");
             }
@@ -49,12 +49,63 @@ namespace T4bJl3T04K4
                     logger.Info("Получено сообщение для входа. Пользователь: {0}", loginData.username);
                     await LoginAsync(loginData);
                     break;
+
                 case "register":
                     var registerData = System.Text.Json.JsonSerializer.Deserialize<RegisterData>(json);
                     logger.Info("Получено сообщение для регистрации. Новый пользователь: {0}", registerData.username);
                     await RegisterAsync(registerData);
                     break;
+
+                case "getSymptoms":
+                    var systemName = System.Text.Json.JsonDocument.Parse(json).RootElement.GetProperty("system").GetString();
+                    await HandleGetSymptoms(systemName);
+                    break;
+
+
+                case "diagnose":
+                    var diagnoseData = JsonConvert.DeserializeObject<DiagnoseRequest>(json);
+                    await HandleDiagnose(diagnoseData);
+                    break;
+
+                case "updateProfile":
+                    var profileData = JsonConvert.DeserializeObject<ProfileData>(json);
+                    await UpdateProfileAsync(profileData);
+                    break;
+
+                case "uploadPhoto":
+                    var uploadData = JsonConvert.DeserializeObject<UploadPhotoData>(json);
+                    await UploadPhotoAsync(uploadData.file);
+                    break;
+
+                case "deletePhoto":
+                    await DeletePhotoAsync();
+                    break;
+
+                case "deleteAccount":
+                    await DeleteAccountAsync();
+                    break;
+
+                case "getSearchHistory":
+                    await GetSearchHistoryAsync();
+                    break;
             }
+        }
+        private async Task GetSearchHistoryAsync()
+        {
+                var histories = await dataBase.SearchHistories
+                .Where(sh => sh.UserId == currentUserId)
+                .Include(sh => sh.SearchHistorySymptoms)
+                    .ThenInclude(shs => shs.Symptom)
+                .ToListAsync();
+
+            var result = histories.Select(sh => new
+            {
+                searchDate = sh.SearchDate,
+                searchHistoryText = string.Join(", ", sh.SearchHistorySymptoms.Select(shs => shs.Symptom.NameRu))
+            }).ToList();
+
+            var json = JsonConvert.SerializeObject(new { type = "searchHistoryData", data = result });
+            webView.CoreWebView2.PostWebMessageAsJson(json);
         }
 
         /// <summary>
@@ -305,7 +356,6 @@ namespace T4bJl3T04K4
         private void ResetSession()
         {
             currentUserId = Guid.Empty;
-            webView.CoreWebView2.WebMessageReceived -= WebView2_WebMessageReceived;
             webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
 
             logger.Info("Состояние приложения сброшено. Пользователь вышел.");
@@ -353,29 +403,6 @@ namespace T4bJl3T04K4
             finally
             {
                 _dbSemaphore.Release();
-            }
-        }
-
-        private async void WebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
-        {
-            var json = e.WebMessageAsJson;
-            var baseData = JsonConvert.DeserializeObject<BaseProfileAction>(json);
-            switch (baseData.action)
-            {
-                case "updateProfile":
-                    var profileData = JsonConvert.DeserializeObject<ProfileData>(json);
-                    await UpdateProfileAsync(profileData);
-                    break;
-                case "uploadPhoto":
-                    var uploadData = JsonConvert.DeserializeObject<UploadPhotoData>(json);
-                    await UploadPhotoAsync(uploadData.file);
-                    break;
-                case "deletePhoto":
-                    await DeletePhotoAsync();
-                    break;
-                case "deleteAccount":  // Новая ветка для удаления учётной записи
-                    await DeleteAccountAsync();
-                    break;
             }
         }
 
@@ -457,10 +484,88 @@ namespace T4bJl3T04K4
         {
             var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "Cabinet.html");
             webView.Source = new Uri(htmlPath);
-            webView.CoreWebView2.WebMessageReceived -= WebView_WebMessageReceived;
-            webView.CoreWebView2.WebMessageReceived += WebView2_WebMessageReceived;
             webView.NavigationCompleted += WebView_NavigationCompleted;
             logger.Info("Переход на страницу кабинета пользователя.");
         }
+        private async Task HandleGetSymptoms(string system)
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var symptoms = await dataBase.SystemsSymptoms
+                    .Where(ss => ss.SystemName == system)
+                    .Join(dataBase.Symptoms,
+                          ss => ss.SymptomId,
+                          s => s.Id,
+                          (ss, s) => new { id = s.Id, name = s.NameRu })
+                    .ToListAsync();
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    type = "symptoms",
+                    data = symptoms
+                });
+
+                webView.CoreWebView2.PostWebMessageAsJson(json);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при получении симптомов для системы {0}", system);
+                SendError("Ошибка загрузки симптомов: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+
+
+        private async Task HandleDiagnose(DiagnoseRequest request)
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var selectedSymptomIds = request.SelectedSymptomIds;
+
+                // Найдём диагнозы, у которых есть совпадающие симптомы
+                var diagnoses = await dataBase.Diseases
+                    .Select(d => new
+                    {
+                        d.Id,
+                        Name = d.NameRu,
+                        SymptomIds = d.DiseaseSymptoms.Select(ds => ds.SymptomId).ToList()
+                    })
+                    .ToListAsync();
+
+                var matched = diagnoses
+                    .Select(d => new
+                    {
+                        d.Name,
+                        MatchCount = d.SymptomIds.Intersect(selectedSymptomIds).Count(),
+                        Total = d.SymptomIds.Count
+                    })
+                    .Where(d => d.MatchCount > 0)
+                    .OrderByDescending(d => d.MatchCount)
+                    .ToList();
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    type = "diagnosis",
+                    results = matched
+                });
+
+                webView.CoreWebView2.PostWebMessageAsJson(json);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при диагностике");
+                SendError("Ошибка диагностики: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+
     }
 }
