@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T4bJl3T04K4
 {
@@ -10,6 +11,7 @@ namespace T4bJl3T04K4
         [Column("login_id")]
         public Guid LoginId { get; set; } = Guid.NewGuid();
 
+        [Required]
         [ForeignKey("User")]
         [Column("user_id")]
         public Guid UserId { get; set; }
@@ -19,6 +21,7 @@ namespace T4bJl3T04K4
 
         [Column("is_successful")]
         public bool IsSuccessful { get; set; }
-        public User User { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

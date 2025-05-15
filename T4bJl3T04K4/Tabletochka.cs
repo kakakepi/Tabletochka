@@ -1,30 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
-using NLog; // Логирование с помощью NLog
-using System.Threading;   // Для SemaphoreSlim
+using NLog;
 
 namespace T4bJl3T04K4
 {
     public partial class Tabletochka : Form
     {
-        // Статический логгер для данного класса.
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-        // Используется общий экземпляр DbContext, переданный из Program.
         private readonly T4bJl3T04K4Db dataBase;
-        // После авторизации текущий пользователь хранится по его идентификатору.
         private Guid currentUserId;
-        // Семафор для синхронного доступа к dataBase.
         private readonly SemaphoreSlim _dbSemaphore = new SemaphoreSlim(1, 1);
-
-        // Конструктор формы принимает уже созданный DbContext.
         public Tabletochka(T4bJl3T04K4Db db)
         {
             InitializeComponent();
@@ -57,7 +45,6 @@ namespace T4bJl3T04K4
             switch (baseData.action)
             {
                 case "login":
-                    // Ожидается, что LoginData содержит поля username и password.
                     var loginData = System.Text.Json.JsonSerializer.Deserialize<LoginData>(json);
                     logger.Info("Получено сообщение для входа. Пользователь: {0}", loginData.username);
                     await LoginAsync(loginData);
@@ -83,8 +70,6 @@ namespace T4bJl3T04K4
                     SendError("Имя пользователя не может быть пустым");
                     return;
                 }
-
-                // Поиск пользователя по username.
                 var user = await dataBase.Users.FirstOrDefaultAsync(u => u.Username == loginData.username);
                 if (user == null)
                 {
@@ -96,7 +81,6 @@ namespace T4bJl3T04K4
                 var inputHash = HashPassword(loginData.password, user.Salt);
                 if (inputHash != user.PasswordHash)
                 {
-                    // Регистрируем неудачную попытку входа.
                     dataBase.LoginHistories.Add(new LoginHistory
                     {
                         UserId = user.Id,
@@ -108,7 +92,6 @@ namespace T4bJl3T04K4
                     SendError("Неверное имя пользователя или пароль");
                     return;
                 }
-                // Записываем успешную авторизацию.
                 currentUserId = user.Id;
                 dataBase.LoginHistories.Add(new LoginHistory
                 {
@@ -181,7 +164,6 @@ namespace T4bJl3T04K4
                 await dataBase.Users.AddAsync(newUser);
                 await dataBase.SaveChangesAsync();
                 logger.Info("Новый пользователь {0} успешно зарегистрирован. Id: {1}", registerData.username, newUser.Id);
-                // Передаём пользователю его ID для будущей авторизации.
                 SendSuccess("Регистрация прошла успешно. Ваш идентификатор: " + newUser.Id);
             }
             catch (DbUpdateException dbEx)
@@ -320,6 +302,60 @@ namespace T4bJl3T04K4
             }
         }
 
+        private void ResetSession()
+        {
+            currentUserId = Guid.Empty;
+            webView.CoreWebView2.WebMessageReceived -= WebView2_WebMessageReceived;
+            webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
+
+            logger.Info("Состояние приложения сброшено. Пользователь вышел.");
+        }
+
+        private void LoadLoginPage()
+        {
+            var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
+            webView.Source = new Uri(htmlPath);
+            logger.Info("Переход на страницу авторизации после удаления учётной записи.");
+        }
+
+        private async Task DeleteAccountAsync()
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var user = await dataBase.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
+                if (user == null)
+                {
+                    SendError("Пользователь не найден");
+                    return;
+                }
+
+                // Удаляем все записи истории входов, ссылающиеся на пользователя.
+                var loginHistories = dataBase.LoginHistories.Where(lh => lh.UserId == currentUserId);
+                dataBase.LoginHistories.RemoveRange(loginHistories);
+
+                // При необходимости можно удалить и историю поиска.
+                var searchHistories = dataBase.SearchHistories.Where(sh => sh.UserId == currentUserId);
+                dataBase.SearchHistories.RemoveRange(searchHistories);
+                dataBase.Users.Remove(user);
+                await dataBase.SaveChangesAsync();
+
+                logger.Info("Пользователь {0} удален.", user.Username);
+                ResetSession();
+                SendSuccess("Учётная запись удалена");
+                LoadLoginPage();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка удаления аккаунта для пользователя с Id: {0}", currentUserId);
+                SendError("Ошибка удаления аккаунта: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+
         private async void WebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
         {
             var json = e.WebMessageAsJson;
@@ -337,8 +373,12 @@ namespace T4bJl3T04K4
                 case "deletePhoto":
                     await DeletePhotoAsync();
                     break;
+                case "deleteAccount":  // Новая ветка для удаления учётной записи
+                    await DeleteAccountAsync();
+                    break;
             }
         }
+
 
         private async void WebView_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {

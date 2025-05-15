@@ -16,9 +16,6 @@
     <Compile Update="Models\RegisterData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Tabletochka.Designer.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Tabletochka.cs">
       <SubType>Form</SubType>
     </Compile>

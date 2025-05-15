@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace T4bJl3T04K4
 {
     [Table("diseases_symptoms")]
@@ -12,10 +14,11 @@ namespace T4bJl3T04K4
         [Key]
         [Column("symptoms_id")]
         public Guid SymptomId { get; set; }
+
         [ForeignKey("DiseaseId")]
-        public Disease Disease { get; set; }
+        public virtual Disease Disease { get; set; }
 
         [ForeignKey("SymptomId")]
-        public Symptom Symptom { get; set; }
+        public virtual Symptom Symptom { get; set; }
     }
 }

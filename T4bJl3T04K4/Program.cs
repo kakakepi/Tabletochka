@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Resources;
+﻿using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using T4bJl3T04K4.Properties;
 using NLog;
@@ -13,18 +11,9 @@ namespace T4bJl3T04K4
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        /// <summary>
-        /// Главная точка входа в приложение.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
-            {
-                var ex = e.ExceptionObject as Exception;
-                LogManager.GetCurrentClassLogger().Error(ex, "Unhandled exception");
-                MessageBox.Show(ex?.Message, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
             var config = new LoggingConfiguration();
             var consoleTarget = new ColoredConsoleTarget("console")
             {
@@ -34,7 +23,11 @@ namespace T4bJl3T04K4
             config.AddRuleForAllLevels(consoleTarget);
             LogManager.Configuration = config;
 
+            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             logger.Info("Приложение запущено.");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EnvReader.Load("../../../../.env");
@@ -50,14 +43,27 @@ namespace T4bJl3T04K4
             var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
             var database = Environment.GetEnvironmentVariable("DB_NAME");
             var connectionString = $"Host={host};Port={port};Username={username};" +
-                                   $"Password={password};Database={database}";
+                                    $"Password={password};Database={database}";
             var optionsBuilder = new DbContextOptionsBuilder<T4bJl3T04K4Db>();
             optionsBuilder.UseNpgsql(connectionString);
             logger.Info("Подключение к БД установлено. Используем строку подключения: {0}", connectionString);
-            using (var db = new T4bJl3T04K4Db(optionsBuilder.Options))
-            {
-                Application.Run(new Tabletochka(db));
-            }
+            var db = new T4bJl3T04K4Db(optionsBuilder.Options);
+            Application.Run(new Tabletochka(db));
+
+            logger.Info("Приложение завершило работу.");
+        }
+
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            logger.Error(e.Exception, "Unhandled UI exception");
+            MessageBox.Show(e.Exception.Message, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = e.ExceptionObject as Exception;
+            logger.Error(ex, "Unhandled non-UI exception");
+            MessageBox.Show(ex?.Message, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

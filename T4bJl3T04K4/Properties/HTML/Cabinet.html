@@ -1,103 +1,102 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Личный кабинет</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="css/Cabinet.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Личный кабинет</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/Cabinet.css">
 </head>
-
 <body>
-  <div class="materialContainer">
-    <div class="box">
-      <div class="title">Личный кабинет</div>
+    <div class="materialContainer">
+        <div class="box">
+            <div class="title">Личный кабинет</div>
 
-      <div class="profile-section">
-        <div class="profile-pic">
-          <img src="img/avatar.jpg" alt="Аватар">
+            <div class="profile-section">
+                <div class="profile-pic">
+                    <img src="img/avatar.jpg" alt="Аватар">
+                </div>
+                <div class="profile-actions">
+                    <button class="button secondary" id="uploadBtn">
+                        <i class="fas fa-upload"></i> Загрузить фото
+                    </button>
+                    <!-- Предположим, что эта кнопка отвечает за удаление фото -->
+                    <button class="button secondary" id="deleteBtn">
+                        <i class="fas fa-trash"></i> Удалить фото
+                    </button>
+                </div>
+            </div>
+
+            <form id="profileForm">
+                <div class="input-group">
+                    <label>Псевдоним</label>
+                    <div class="input">
+                        <input type="text" id="username" required>
+                        <span class="spin"></span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Фамилия</label>
+                    <div class="input">
+                        <input type="text" id="lastname" required>
+                        <span class="spin"></span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Имя</label>
+                    <div class="input">
+                        <input type="text" id="firstname" required>
+                        <span class="spin"></span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Пол</label>
+                    <div class="input">
+                        <select id="gender">
+                            <option value="male">Мужской</option>
+                            <option value="female">Женский</option>
+                        </select>
+                        <span class="spin"></span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Дата рождения</label>
+                    <div class="input">
+                        <input type="date" id="birthdate" required>
+                        <span class="spin"></span>
+                    </div>
+                </div>
+
+                <label>Смена пароля</label>
+                <div class="input-group">
+                    <label>Старый пароль</label>
+                    <div class="input">
+                        <input type="password" id="oldPassword">
+                        <span class="spin"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Новый пароль</label>
+                    <div class="input">
+                        <input type="password" id="newPassword">
+                        <span class="spin"></span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button primary" id="deleteAccountBtn">Удалить аккаунт</button>
+                    <button type="button" class="button secondary" id="cancelBtn">Отмена</button>
+                    <button type="submit" class="button primary">Сохранить</button>
+                </div>
+            </form>
         </div>
-        <div class="profile-actions">
-          <button class="button secondary" id="uploadBtn">
-            <i class="fas fa-upload"></i> Загрузить фото
-          </button>
-          <button class="button secondary" id="deleteBtn">
-            <i class="fas fa-trash"></i> Удалить
-          </button>
-        </div>
-      </div>
-
-      <form id="profileForm">
-          <div class="input-group">
-              <label>Псевдоним</label>
-              <div class="input">
-                  <input type="text" id="username" required>
-                  <span class="spin"></span>
-              </div>
-          </div>
-
-          <div class="input-group">
-              <label>Фамилия</label>
-              <div class="input">
-                  <input type="text" id="lastname" required>
-                  <span class="spin"></span>
-              </div>
-          </div>
-
-          <div class="input-group">
-              <label>Имя</label>
-              <div class="input">
-                  <input type="text" id="firstname" required>
-                  <span class="spin"></span>
-              </div>
-          </div>
-
-          <div class="input-group">
-              <label>Пол</label>
-              <div class="input">
-                  <select id="gender">
-                      <option value="male">Мужской</option>
-                      <option value="female">Женский</option>
-                  </select>
-                  <span class="spin"></span>
-              </div>
-          </div>
-
-          <div class="input-group">
-              <label>Дата рождения</label>
-              <div class="input">
-                  <input type="date" id="birthdate" required>
-                  <span class="spin"></span>
-              </div>
-          </div>
-
-          <label>Смена пароля</label>
-          <div class="input-group">
-              <label>Старый пароль</label>
-              <div class="input">
-                  <input type="password" id="oldPassword">
-                  <span class="spin"></span>
-              </div>
-          </div>
-          <div class="input-group">
-              <label>Новый пароль</label>
-              <div class="input">
-                  <input type="password" id="newPassword">
-                  <span class="spin"></span>
-              </div>
-          </div>
-
-          <div class="button-group">
-              <button type="button" class="button secondary" id="cancelBtn">Отмена</button>
-              <button type="submit" class="button primary">Сохранить</button>
-          </div>
-      </form>
     </div>
-  </div>
 
-  <script src="js/Cabinet.js"></script>
+    <script src="js/Cabinet.js"></script>
 </body>
-
 </html>
