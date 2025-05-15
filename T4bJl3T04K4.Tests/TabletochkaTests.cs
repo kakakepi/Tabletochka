@@ -25,7 +25,7 @@ namespace T4bJl3T04K4.Tests
             var options = new DbContextOptionsBuilder<T4bJl3T04K4Db>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             _db = new T4bJl3T04K4Db(options);
-            _tabletochka = new Tabletochka(_db);
+            _tabletochka = new TestableTabletochka(_db);
         }
 
         [TestMethod()]
@@ -214,6 +214,8 @@ namespace T4bJl3T04K4.Tests
                 NewPassword = "",
             };
 
+            SetCurrentUserId(profileData.Id);
+
             await _tabletochka.UpdateProfileAsync(profileData);
 
             var updatedUser = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
@@ -264,6 +266,9 @@ namespace T4bJl3T04K4.Tests
                 NewPassword = newPassword,
             };
 
+            SetCurrentUserId(profileData.Id);
+
+
             await _tabletochka.UpdateProfileAsync(profileData);
 
             var updatedUser = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
@@ -313,6 +318,8 @@ namespace T4bJl3T04K4.Tests
                 OldPassword = "18273645",
                 NewPassword = newPassword,
             };
+
+            SetCurrentUserId(profileData.Id);
 
             await _tabletochka.UpdateProfileAsync(profileData);
 
@@ -378,6 +385,9 @@ namespace T4bJl3T04K4.Tests
                 NewPassword = "",
             };
 
+            SetCurrentUserId(profileData.Id);
+
+
             await _tabletochka.UpdateProfileAsync(profileData);
 
             var userCount = await _db.Users.CountAsync(u => u.Username == username);
@@ -406,9 +416,7 @@ namespace T4bJl3T04K4.Tests
             await _db.AddAsync(user);
             await _db.SaveChangesAsync();
 
-            var idField = typeof(Tabletochka)
-                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
-            idField.SetValue(_tabletochka, user.Id);
+            SetCurrentUserId(user.Id);
 
             await _tabletochka.UploadPhotoAsync(base64image);
 
@@ -437,9 +445,7 @@ namespace T4bJl3T04K4.Tests
             await _db.AddAsync(user);
             await _db.SaveChangesAsync();
 
-            var idField = typeof(Tabletochka)
-                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
-            idField.SetValue(_tabletochka, user.Id);
+            SetCurrentUserId(user.Id);
 
             await _tabletochka.DeletePhotoAsync();
 
@@ -491,6 +497,71 @@ namespace T4bJl3T04K4.Tests
             var secondHashPassword = _tabletochka.HashPassword(secondPassword, salt);
 
             Assert.AreNotEqual(firstHashPassword, secondHashPassword);
+        }
+
+        [TestMethod()]
+        public async Task DeleteAccountAsync_NonExistingUser_NotUpdateDatabase()
+        {
+            var nonExistingUserId = new Guid();
+
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "username",
+                FirstName = "Firstname",
+                LastName = "Lastname",
+                Gender = false,
+                DateOfBirth = new DateTime(2006, 3, 6),
+                PasswordHash = "",
+                Salt = "",
+                Picture = "",
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            SetCurrentUserId(nonExistingUserId);
+
+            await _tabletochka.DeleteAccountAsync();
+
+            var userCount = await _db.Users.CountAsync();
+
+            Assert.AreEqual(1, userCount);  
+        }
+
+        [TestMethod()]
+        public async Task DeleteAccountAsync_ExistingUser_UpdateDatabase()
+        {
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "username",
+                FirstName = "Firstname",
+                LastName = "Lastname",
+                Gender = false,
+                DateOfBirth = new DateTime(2006, 3, 6),
+                PasswordHash = "",
+                Salt = "",
+                Picture = "",
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            SetCurrentUserId(user.Id);
+
+            await _tabletochka.DeleteAccountAsync();
+
+            var userCount = await _db.Users.CountAsync();
+
+            Assert.AreEqual(0, userCount);
+        }
+
+        private void SetCurrentUserId(Guid userId)
+        {
+            var idField = typeof(Tabletochka)
+                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
+            idField.SetValue(_tabletochka, userId);
         }
     }
 }
