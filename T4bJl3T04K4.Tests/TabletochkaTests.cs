@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using static T4bJl3T04K4.Tabletochka;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace T4bJl3T04K4.Tests
 {
@@ -381,5 +384,39 @@ namespace T4bJl3T04K4.Tests
 
             Assert.AreEqual(1, userCount);
         }
+
+        [TestMethod()]
+        public async Task UploadPhotoAsync_Photo_UploadPhoto()
+        {
+            string base64image = "R0lGODlhAQABAAAAACw=";
+
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "latypdin",
+                FirstName = "Dina",
+                LastName = "Latypova",
+                Gender = false,
+                DateOfBirth = new DateTime(1996, 9, 23),
+                PasswordHash = "",
+                Salt = "",
+                Picture = "",
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            var idField = typeof(Tabletochka)
+                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
+            idField.SetValue(_tabletochka, user.Id);
+
+            await _tabletochka.UploadPhotoAsync(base64image);
+
+            var userWithPicture = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+
+            Assert.IsNotNull(userWithPicture);
+            Assert.AreEqual(userWithPicture.Picture, base64image);
+        }
+
     }
 }
