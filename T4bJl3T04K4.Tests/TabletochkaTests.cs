@@ -468,5 +468,17 @@ namespace T4bJl3T04K4.Tests
 
             Assert.AreEqual(firstHashPassword, secondHashPassword);
         }
+
+        [TestMethod()]
+        public void HashPassword_DiffrentSalt_DifferentHashPassword()
+        {
+            var password = "12345678";
+            var firstSalt = _tabletochka.GenerateSalt();
+            var secondSalt = _tabletochka.GenerateSalt();
+            var firstHashPassword = _tabletochka.HashPassword(password, firstSalt);
+            var secondHashPassword = _tabletochka.HashPassword(password, secondSalt);
+
+            Assert.AreNotEqual(firstHashPassword, secondHashPassword);
+        }
     }
 }
