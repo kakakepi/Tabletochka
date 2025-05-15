@@ -214,6 +214,10 @@ namespace T4bJl3T04K4.Tests
                 NewPassword = "",
             };
 
+            var idField = typeof(Tabletochka)
+                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
+            idField.SetValue(_tabletochka, profileData.Id);
+
             await _tabletochka.UpdateProfileAsync(profileData);
 
             var updatedUser = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
@@ -264,6 +268,10 @@ namespace T4bJl3T04K4.Tests
                 NewPassword = newPassword,
             };
 
+            var idField = typeof(Tabletochka)
+                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
+            idField.SetValue(_tabletochka, profileData.Id);
+
             await _tabletochka.UpdateProfileAsync(profileData);
 
             var updatedUser = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
@@ -313,6 +321,10 @@ namespace T4bJl3T04K4.Tests
                 OldPassword = "18273645",
                 NewPassword = newPassword,
             };
+
+            var idField = typeof(Tabletochka)
+                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
+            idField.SetValue(_tabletochka, profileData.Id);
 
             await _tabletochka.UpdateProfileAsync(profileData);
 
@@ -377,6 +389,10 @@ namespace T4bJl3T04K4.Tests
                 OldPassword = "",
                 NewPassword = "",
             };
+
+            var idField = typeof(Tabletochka)
+                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
+            idField.SetValue(_tabletochka, profileData.Id);
 
             await _tabletochka.UpdateProfileAsync(profileData);
 
