@@ -111,7 +111,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Авторизация происходит по username.
         /// </summary>
-        private async Task LoginAsync(LoginData loginData)
+        public async Task LoginAsync(LoginData loginData)
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -170,7 +170,7 @@ namespace T4bJl3T04K4
         /// Поиск дублирования осуществляется по username.
         /// После регистрации отправляется сообщение с идентификатором нового пользователя.
         /// </summary>
-        private async Task RegisterAsync(RegisterData registerData)
+        public async Task RegisterAsync(RegisterData registerData)
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -327,7 +327,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Удаление фото пользователя по currentUserId.
         /// </summary>
-        private async Task DeletePhotoAsync()
+        public async Task DeletePhotoAsync()
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -368,7 +368,7 @@ namespace T4bJl3T04K4
             logger.Info("Переход на страницу авторизации после удаления учётной записи.");
         }
 
-        private async Task DeleteAccountAsync()
+        public async Task DeleteAccountAsync()
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -445,7 +445,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Генерация случайной соли для хэширования пароля.
         /// </summary>
-        private string GenerateSalt()
+        public string GenerateSalt()
         {
             var salt = new byte[32];
             using (var rand = RandomNumberGenerator.Create())
@@ -458,7 +458,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Вычисление хэша пароля с использованием соли.
         /// </summary>
-        private string HashPassword(string password, string salt)
+        public string HashPassword(string password, string salt)
         {
             using (var sha256 = SHA256.Create())
             {
