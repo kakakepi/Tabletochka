@@ -177,5 +177,101 @@ namespace T4bJl3T04K4.Tests
 
             Assert.AreEqual(1, userCount);
         }
+
+        [TestMethod()]
+        public async Task UpdateProfileAsync_NewProfileDataWithoutPassword_UpdateProfileData()
+        {
+            var salt = _tabletochka.GenerateSalt();
+            var passwordHash = _tabletochka.HashPassword("12345678", salt);
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "oldUsername",
+                FirstName = "oldFirstName",
+                LastName = "oldLastName",
+                Gender = true,
+                DateOfBirth = new DateTime(2006, 3, 7),
+                PasswordHash = passwordHash,
+                Salt = salt,
+                Picture = "",
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            var profileData = new ProfileData
+            {
+                Id = user.Id,
+                Username = "newUsername",
+                Firstname = "newFirstname",
+                Lastname = "newLastname",
+                Gender = "female",
+                Birthdate = "2006-03-06",
+                OldPassword = "",
+                NewPassword = "",
+            };
+
+            await _tabletochka.UpdateProfileAsync(profileData);
+
+            var updatedUser = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+
+            Assert.IsNotNull(updatedUser);
+            Assert.AreEqual(profileData.Username, updatedUser.Username);
+            Assert.AreEqual(profileData.Firstname, updatedUser.FirstName);
+            Assert.AreEqual(profileData.Lastname, updatedUser.LastName);
+            Assert.IsFalse(updatedUser.Gender); 
+            Assert.AreEqual(DateTime.Parse(profileData.Birthdate), updatedUser.DateOfBirth);
+            Assert.AreEqual(passwordHash, updatedUser.PasswordHash);
+        }
+
+        [TestMethod()]
+        public async Task UpdateProfileAsync_NewProfileDataWithCorrectOldPassword_UpdateProfileData()
+        {
+            var oldPassword = "12345678";
+            var newPassword = "87654321";
+            var salt = _tabletochka.GenerateSalt();
+            var oldPasswordHash = _tabletochka.HashPassword(oldPassword, salt);
+            var newPasswordHash = _tabletochka.HashPassword(newPassword, salt);
+
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "oldUsername",
+                FirstName = "oldFirstName",
+                LastName = "oldLastName",
+                Gender = true,
+                DateOfBirth = new DateTime(2006, 3, 7),
+                PasswordHash = oldPasswordHash,
+                Salt = salt,
+                Picture = "",
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            var profileData = new ProfileData
+            {
+                Id = user.Id,
+                Username = "newUsername",
+                Firstname = "newFirstname",
+                Lastname = "newLastname",
+                Gender = "female",
+                Birthdate = "2006-03-06",
+                OldPassword = oldPassword,
+                NewPassword = newPassword,
+            };
+
+            await _tabletochka.UpdateProfileAsync(profileData);
+
+            var updatedUser = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+
+            Assert.IsNotNull(updatedUser);
+            Assert.AreEqual(profileData.Username, updatedUser.Username);
+            Assert.AreEqual(profileData.Firstname, updatedUser.FirstName);
+            Assert.AreEqual(profileData.Lastname, updatedUser.LastName);
+            Assert.IsFalse(updatedUser.Gender);
+            Assert.AreEqual(DateTime.Parse(profileData.Birthdate), updatedUser.DateOfBirth);
+            Assert.AreEqual(updatedUser.PasswordHash, newPasswordHash);
+        }
     }
 }
