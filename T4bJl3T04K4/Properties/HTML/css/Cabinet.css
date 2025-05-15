@@ -4,10 +4,33 @@
     padding: 0;
 }
 
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 999
+}
+
+.avatar-top {
+    width: 50px;
+    height: 50px;
+    background: #ED2553;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
-    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1&ipt=c01eaf67d5a18543a5745bcab6ac05af7becbb311d24f767f180cacd0f914f1b);
-
+    background-image: url(../images/background-image.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -205,19 +228,6 @@ body {
         flex-direction: column;
         text-align: center;
     }
-}
-
-.avatar-top {
-    width: 40px;
-    height: 40px;
-    background: #ED2553;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
 }
 
 .overlay,

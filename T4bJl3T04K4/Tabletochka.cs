@@ -27,7 +27,7 @@ namespace T4bJl3T04K4
             {
                 await webView.EnsureCoreWebView2Async(null);
                 webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
-                var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "Main.html");
+                var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
                 webView.Source = new Uri(htmlPath);
                 logger.Info("WebView2 успешно инициализирован и загружена страница LoginRegistration.html.");
             }
@@ -92,11 +92,11 @@ namespace T4bJl3T04K4
         }
         private async Task GetSearchHistoryAsync()
         {
-                var histories = await dataBase.SearchHistories
-                .Where(sh => sh.UserId == currentUserId)
-                .Include(sh => sh.SearchHistorySymptoms)
-                    .ThenInclude(shs => shs.Symptom)
-                .ToListAsync();
+            var histories = await dataBase.SearchHistories
+            .Where(sh => sh.UserId == currentUserId)
+            .Include(sh => sh.SearchHistorySymptoms)
+                .ThenInclude(shs => shs.Symptom)
+            .ToListAsync();
 
             var result = histories.Select(sh => new
             {
@@ -214,8 +214,12 @@ namespace T4bJl3T04K4
                 };
                 await dataBase.Users.AddAsync(newUser);
                 await dataBase.SaveChangesAsync();
+
+                currentUserId = newUser.Id;
+                LoadUserCabinet();
                 logger.Info("Новый пользователь {0} успешно зарегистрирован. Id: {1}", registerData.username, newUser.Id);
                 SendSuccess("Регистрация прошла успешно. Ваш идентификатор: " + newUser.Id);
+
             }
             catch (DbUpdateException dbEx)
             {
@@ -380,11 +384,9 @@ namespace T4bJl3T04K4
                     return;
                 }
 
-                // Удаляем все записи истории входов, ссылающиеся на пользователя.
                 var loginHistories = dataBase.LoginHistories.Where(lh => lh.UserId == currentUserId);
                 dataBase.LoginHistories.RemoveRange(loginHistories);
 
-                // При необходимости можно удалить и историю поиска.
                 var searchHistories = dataBase.SearchHistories.Where(sh => sh.UserId == currentUserId);
                 dataBase.SearchHistories.RemoveRange(searchHistories);
                 dataBase.Users.Remove(user);
@@ -527,7 +529,6 @@ namespace T4bJl3T04K4
             {
                 var selectedSymptomIds = request.SelectedSymptomIds;
 
-                // Найдём диагнозы, у которых есть совпадающие симптомы
                 var diagnoses = await dataBase.Diseases
                     .Select(d => new
                     {

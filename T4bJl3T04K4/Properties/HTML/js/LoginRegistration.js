@@ -117,3 +117,37 @@
    });
 
 });
+function sendLogin() {
+           window.chrome.webview.addEventListener('message', function (event) {
+               if (event.data.type === 'login-error') {
+                   document.getElementById('loginError').innerText = event.data.message;
+                   document.getElementById('loginError').style.display = 'block';
+               }
+           });
+
+         var username = document.getElementById('name').value;
+         var password = document.getElementById('pass').value;
+         window.chrome.webview.postMessage({
+            action: "login",
+            username: username,
+            password: password
+         });
+      }
+
+       function sendRegister() {
+           window.chrome.webview.addEventListener('message', function (event) {
+               if (event.data.type === 'register-error') {
+                   document.getElementById('registerError').innerText = event.data.message;
+                   document.getElementById('registerError').style.display = 'block';
+               }
+           });
+         var username = document.getElementById('regname').value;
+         var password = document.getElementById('regpass').value;
+         var repeatPassword = document.getElementById('reregpass').value;
+         window.chrome.webview.postMessage({
+            action: "register",
+            username: username,
+            password: password,
+            repeatPassword: repeatPassword
+         });
+      }
