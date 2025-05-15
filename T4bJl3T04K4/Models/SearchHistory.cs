@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace T4bJl3T04K4
 {
@@ -10,13 +12,16 @@ namespace T4bJl3T04K4
         [Column("id")]
         public Guid Id { get; set; } = Guid.NewGuid();
 
+        [Required]
         [ForeignKey("User")]
         [Column("user_id")]
         public Guid UserId { get; set; }
 
         [Column("search_date")]
         public DateTime SearchDate { get; set; } = DateTime.UtcNow;
-        public User User { get; set; }
-        public ICollection<SearchHistorySymptom> SearchHistorySymptoms { get; set; } = new List<SearchHistorySymptom>();
+
+        public virtual User User { get; set; }
+
+        public virtual ICollection<SearchHistorySymptom> SearchHistorySymptoms { get; set; } = new List<SearchHistorySymptom>();
     }
 }
