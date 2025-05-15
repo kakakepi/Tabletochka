@@ -225,7 +225,7 @@ namespace T4bJl3T04K4.Tests
         }
 
         [TestMethod()]
-        public async Task UpdateProfileAsync_NewProfileDataWithCorrectOldPassword_UpdateProfileData()
+        public async Task UpdateProfileAsync_NewProfileDataWithCorrectOldPassword_UpdatePassword()
         {
             var oldPassword = "12345678";
             var newPassword = "87654321";
@@ -275,7 +275,7 @@ namespace T4bJl3T04K4.Tests
         }
 
         [TestMethod()]
-        public async Task UpdateProfileAsync_NewProfileDataWithWrongOldPassword_UpdateProfileData()
+        public async Task UpdateProfileAsync_NewProfileDataWithWrongOldPassword_NotUpdatePassword()
         {
             var oldPassword = "12345678";
             var newPassword = "87654321";
@@ -322,6 +322,64 @@ namespace T4bJl3T04K4.Tests
             Assert.IsFalse(updatedUser.Gender);
             Assert.AreEqual(DateTime.Parse(profileData.Birthdate), updatedUser.DateOfBirth);
             Assert.AreEqual(updatedUser.PasswordHash, oldPasswordHash);
+        }
+
+        [TestMethod()]
+        public async Task UpdateProfileAsync_DuplicateProfileData_NotUpdateProfileData()
+        {
+            var username = "latypdin";
+            var firstSalt = _tabletochka.GenerateSalt();
+            var secondSalt = _tabletochka.GenerateSalt();
+            var firstPasswordHash = _tabletochka.HashPassword("12345678", firstSalt);
+            var secondPasswordHash = _tabletochka.HashPassword("09876543", secondSalt);
+
+            var firstUser = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = username,
+                FirstName = "Dina",
+                LastName = "Latypova",
+                Gender = false,
+                DateOfBirth = new DateTime(1996, 9, 23),
+                PasswordHash = firstPasswordHash,
+                Salt = firstSalt,
+                Picture = "",
+            };
+
+            var secondUser = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "quintrrr",
+                FirstName = "Arina",
+                LastName = "Gomza",
+                Gender = false,
+                DateOfBirth = new DateTime(2006, 3, 6),
+                PasswordHash = secondPasswordHash,
+                Salt = secondSalt,
+                Picture = "",
+            };
+
+            await _db.AddAsync(firstUser);
+            await _db.AddAsync(secondUser);
+            await _db.SaveChangesAsync();
+
+            var profileData = new ProfileData
+            {
+                Id = secondUser.Id,
+                Username = username,
+                Firstname = "Arina",
+                Lastname = "Semenistyy",
+                Gender = "female",
+                Birthdate = "2006-03-06",
+                OldPassword = "",
+                NewPassword = "",
+            };
+
+            await _tabletochka.UpdateProfileAsync(profileData);
+
+            var userCount = await _db.Users.CountAsync(u => u.Username == username);
+
+            Assert.AreEqual(1, userCount);
         }
     }
 }
