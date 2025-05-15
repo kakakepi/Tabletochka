@@ -418,5 +418,35 @@ namespace T4bJl3T04K4.Tests
             Assert.AreEqual(userWithPicture.Picture, base64image);
         }
 
+        [TestMethod()]
+        public async Task DeletePhotoAsync_Photo_DeletePhoto()
+        {
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "latypdin",
+                FirstName = "Dina",
+                LastName = "Latypova",
+                Gender = false,
+                DateOfBirth = new DateTime(1996, 9, 23),
+                PasswordHash = "",
+                Salt = "",
+                Picture = "R0lGODlhAQABAAAAACw=",
+            };
+
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+
+            var idField = typeof(Tabletochka)
+                .GetField("currentUserId", BindingFlags.Instance | BindingFlags.NonPublic);
+            idField.SetValue(_tabletochka, user.Id);
+
+            await _tabletochka.DeletePhotoAsync();
+
+            var userWithoutPicture = await _db.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+
+            Assert.IsNotNull(userWithoutPicture);
+            Assert.IsNull(userWithoutPicture.Picture);
+        }
     }
 }
