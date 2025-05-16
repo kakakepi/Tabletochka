@@ -225,7 +225,7 @@ namespace T4bJl3T04K4.Tests
             Assert.AreEqual(profileData.Firstname, updatedUser.FirstName);
             Assert.AreEqual(profileData.Lastname, updatedUser.LastName);
             Assert.IsFalse(updatedUser.Gender); 
-            Assert.AreEqual(DateTime.Parse(profileData.Birthdate), updatedUser.DateOfBirth);
+            Assert.AreEqual(DateTime.Parse(profileData.Birthdate).ToUniversalTime(), updatedUser.DateOfBirth);
             Assert.AreEqual(passwordHash, updatedUser.PasswordHash);
         }
 
@@ -278,7 +278,7 @@ namespace T4bJl3T04K4.Tests
             Assert.AreEqual(profileData.Firstname, updatedUser.FirstName);
             Assert.AreEqual(profileData.Lastname, updatedUser.LastName);
             Assert.IsFalse(updatedUser.Gender);
-            Assert.AreEqual(DateTime.Parse(profileData.Birthdate), updatedUser.DateOfBirth);
+            Assert.AreEqual(DateTime.Parse(profileData.Birthdate).ToUniversalTime(), updatedUser.DateOfBirth);
             Assert.AreEqual(updatedUser.PasswordHash, newPasswordHash);
         }
 
@@ -330,7 +330,7 @@ namespace T4bJl3T04K4.Tests
             Assert.AreEqual(profileData.Firstname, updatedUser.FirstName);
             Assert.AreEqual(profileData.Lastname, updatedUser.LastName);
             Assert.IsFalse(updatedUser.Gender);
-            Assert.AreEqual(DateTime.Parse(profileData.Birthdate), updatedUser.DateOfBirth);
+            Assert.AreEqual(DateTime.Parse(profileData.Birthdate).ToUniversalTime(), updatedUser.DateOfBirth);
             Assert.AreEqual(updatedUser.PasswordHash, oldPasswordHash);
         }
 
