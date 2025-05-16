@@ -82,3 +82,7 @@ function onSystemChange() {
       const submenu = document.getElementById(id);
       submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
     }
+
+    function logout() {
+    window.chrome.webview.postMessage({ action: "logout" });
+}

@@ -87,6 +87,11 @@ namespace T4bJl3T04K4
                 case "getSearchHistory":
                     await GetSearchHistoryAsync();
                     break;
+
+                case "logout":
+                    await LogoutAsync();
+                    break;
+
             }
         }
         private async Task GetSearchHistoryAsync()
@@ -256,7 +261,16 @@ namespace T4bJl3T04K4
                 user.LastName = profileData.Lastname;
                 user.Gender = !string.IsNullOrEmpty(profileData.Gender) &&
                                 profileData.Gender.Equals("male", StringComparison.OrdinalIgnoreCase);
-                user.DateOfBirth = DateTime.Parse(profileData.Birthdate);
+                if (!DateTime.TryParse(profileData.Birthdate, out var parsedDate))
+                {
+                    SendError("Неверный формат даты рождения");
+                    return;
+                }
+                user.DateOfBirth = parsedDate.ToUniversalTime();
+
+
+
+
                 if (!string.IsNullOrEmpty(profileData.OldPassword) && !string.IsNullOrEmpty(profileData.NewPassword))
                 {
                     var oldPassHash = HashPassword(profileData.OldPassword, user.Salt);
@@ -579,6 +593,26 @@ namespace T4bJl3T04K4
             }
         }
 
+        public async Task LogoutAsync()
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                logger.Info("Пользователь с Id {0} вышел из системы.", currentUserId);
+                currentUserId = Guid.Empty;
+                LoadLoginPage();
+                SendSuccess("Вы успешно вышли из системы");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при выходе пользователя с Id: {0}", currentUserId);
+                SendError("Ошибка выхода: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
 
     }
 }

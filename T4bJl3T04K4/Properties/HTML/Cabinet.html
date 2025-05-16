@@ -21,7 +21,7 @@
     <div class="side-panel" id="sidePanel">
         <div class="menu-title">Меню</div>
         <div class="menu-item"><a href="Main.html">Главная страница</a></div>
-        <div class="menu-item"><a href="Сabinet.html">Личный кабинет</a></div>
+        <div class="menu-item"><a href="Cabinet.html">Личный кабинет</a></div>
         <div class="menu-item"><a href="History.html">История поиска</a></div>
 
         <div class="menu-item" onclick="toggleSubmenu('langSubmenu')">Язык</div>
@@ -34,7 +34,7 @@
             <div>ГОРЯЧАЯ линия 24/7</div>
             <div>+79822552998</div>
         </div>
-        <div class="menu-item" style="color: red;">Выход</div>
+        <div class="menu-item" style="color: red;" onclick="logout()">Выход</div>
     </div>
 
     <div class="materialContainer">
@@ -43,7 +43,7 @@
 
             <div class="profile-section">
                 <div class="profile-pic">
-                    <img id="profileImage">
+                    <img id="profileImage" src="images/default-avatar.png">
 
                 </div>
                 <div class="profile-actions">
@@ -117,8 +117,7 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="button primary" id="deleteAccountBtn">Удалить аккаунт</button>
-                    <button type="button" class="button secondary" id="cancelBtn">Отмена</button>
+                    <button type="button" class="button secondary" id="deleteAccountBtn">Удалить аккаунт</button>
                     <button type="submit" class="button primary">Сохранить</button>
                 </div>
             </form>

@@ -151,3 +151,6 @@ function sendLogin() {
             repeatPassword: repeatPassword
          });
       }
+      function logout() {
+    window.chrome.webview.postMessage({ action: "logout" });
+}

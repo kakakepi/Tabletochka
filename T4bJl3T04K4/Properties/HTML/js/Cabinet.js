@@ -11,9 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.chrome.webview.addEventListener('message', event => {
         if (event.data.type === 'success') {
             alert(event.data.message);
+            location.reload();
         }
         if (event.data.type === 'error') {
             alert(`Ошибка: ${event.data.message}`);
+            location.reload();
+
         }
     });
 });
@@ -56,15 +59,20 @@ function uploadPhoto() {
                 });
             };
             reader.readAsDataURL(file);
+            location.reload();
+
         }
     };
 
     input.click();
+
 }
 
 function deletePhoto() {
     if (confirm('Вы уверены, что хотите удалить фото?')) {
         window.chrome.webview.postMessage({ action: "deletePhoto" });
+        location.reload();
+
     }
 }
 
@@ -85,10 +93,14 @@ window.chrome.webview.addEventListener('message', event => {
     document.getElementById('birthdate').value = user.dateOfBirth || '';
 
     if (event.data.type === 'photo-updated') {
-        document.querySelector('.profile-pic img').src = event.data.picture || 'img/default-avatar.jpg';
+        document.querySelector('.profile-pic img').src = event.data.picture || 'images/default-avatar.jpg';
     }
     if (event.data.type === 'photo-deleted') {
-        document.querySelector('.profile-pic img').src = 'img/default-avatar.jpg';
+        document.querySelector('.profile-pic img').src = 'images/default-avatar.jpg';
+    }
+
+    if (user.picture) {
+        document.getElementById('profileImage').src = `data:image/jpeg;base64,${user.picture}`;
     }
 });
 function togglePanel() {
@@ -106,4 +118,7 @@ function togglePanel() {
 function toggleSubmenu(id) {
   const submenu = document.getElementById(id);
   submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+}
+function logout() {
+    window.chrome.webview.postMessage({ action: "logout" });
 }
