@@ -1,11 +1,9 @@
-/* Сброс стилей */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* Стили для body с явным фоном (используем внешний URL, чтобы фон всегда подгружался) */
 body {
     font-family: 'Roboto', sans-serif;
     background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1");
@@ -19,7 +17,6 @@ body {
     align-items: center;
 }
 
-/* Фиксированный header в правом верхнем углу */
 header {
     position: fixed;
     top: 0;
@@ -30,7 +27,6 @@ header {
     z-index: 999;
 }
 
-/* Кнопка-иконка для меню */
 .avatar-top {
     width: 50px;
     height: 50px;
@@ -44,7 +40,6 @@ header {
     cursor: pointer;
 }
 
-/* Оверлей для бокового меню */
 .overlay {
     display: none;
     position: fixed;
@@ -56,7 +51,6 @@ header {
     z-index: 998;
 }
 
-/* Боковая панель меню */
 .overlay {
     position: fixed;
     top: 0;
@@ -113,7 +107,6 @@ header {
     font-size: 16px;
 }
 
-/* Основной контент страницы */
 main {
     max-width: 700px;
     margin: 100px auto 40px;

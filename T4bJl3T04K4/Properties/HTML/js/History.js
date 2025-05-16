@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Отправляем запрос к C# на загрузку истории поиска
   getSearchHistory();
 
-  // Обработка входящих сообщений из C#
   window.chrome.webview.addEventListener("message", event => {
     if (event.data.type === "searchHistoryData") {
       populateTable(event.data.data);
     }
   });
 
-  // Инициализируем обработчик для бокового меню
   const menuToggle = document.getElementById("menuToggle");
   menuToggle.addEventListener("click", togglePanel);
 
@@ -17,20 +14,16 @@ document.addEventListener("DOMContentLoaded", function () {
   overlay.addEventListener("click", togglePanel);
 });
 
-// Функция для отправки запроса истории поиска
 function getSearchHistory() {
   window.chrome.webview.postMessage({ action: "getSearchHistory" });
 }
 
-// Функция для заполнения таблицы данными
 function populateTable(data) {
   const tbody = document.getElementById("historyBody");
-  tbody.innerHTML = ""; // Очищаем предыдущие записи
-
+  tbody.innerHTML = ""; 
   data.forEach(entry => {
     const tr = document.createElement("tr");
     
-    // Форматирование даты и времени
     const date = new Date(entry.searchDate);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -51,7 +44,6 @@ function populateTable(data) {
   });
 }
 
-// Функция для переключения бокового меню
 function togglePanel() {
   const overlay = document.querySelector(".overlay");
   const panel = document.getElementById("sidePanel");
@@ -64,7 +56,6 @@ function togglePanel() {
   }
 }
 
-// Функция для переключения подменю (если нужно)
 function toggleSubmenu(id) {
   const submenu = document.getElementById(id);
   submenu.style.display = submenu.style.display === "block" ? "none" : "block";

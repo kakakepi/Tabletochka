@@ -5,15 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>История поиска</title>
-    <!-- Подключаем шрифты и иконки -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Подключаем стили History (аналогичные Cabinet) -->
     <link rel="stylesheet" href="css/History.css">
 </head>
 
 <body>
-    <!-- Заголовок с кнопкой для открытия бокового меню в правом верхнем углу -->
     <header
         style="position: fixed; top: 0; width: 100%; display: flex; justify-content: flex-end; align-items: center; padding: 10px 20px; z-index: 999;">
         <div class="avatar-top" onclick="togglePanel()">
@@ -21,9 +18,7 @@
         </div>
     </header>
 
-    <!-- Оверлей для бокового меню -->
     <div class="overlay" onclick="togglePanel()"></div>
-    <!-- Боковая панель меню -->
     <div class="side-panel" id="sidePanel">
         <div class="menu-title">Меню</div>
         <div class="menu-item"><a href="Main.html">Главная страница</a></div>
@@ -42,7 +37,6 @@
         <div class="menu-item" style="color: red;">Выход</div>
     </div>
 
-    <!-- Основной контейнер страницы -->
     <div class="materialContainer">
         <div class="box">
             <div class="title">История поиска</div>
@@ -55,7 +49,6 @@
                         </tr>
                     </thead>
                     <tbody id="historyBody">
-                        <!-- Строки таблицы будут заполняться через JS -->
                     </tbody>
                 </table>
             </div>

@@ -15,8 +15,6 @@ namespace T4bJl3T04K4
 
         [Column("name_ru", TypeName = "varchar(100)")]
         public string NameRu { get; set; }
-        [Column("system")]
-        public string System { get; set; }
 
 
         public ICollection<DiseaseSymptom> DiseaseSymptoms { get; set; } = new List<DiseaseSymptom>();

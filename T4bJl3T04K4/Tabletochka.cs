@@ -26,7 +26,6 @@ namespace T4bJl3T04K4
             try
             {
                 await webView.EnsureCoreWebView2Async(null);
-                webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
                 var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
                 webView.Source = new Uri(htmlPath);
                 logger.Info("WebView2 успешно инициализирован и загружена страница LoginRegistration.html.");
@@ -111,7 +110,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Авторизация происходит по username.
         /// </summary>
-        private async Task LoginAsync(LoginData loginData)
+        public async Task LoginAsync(LoginData loginData)
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -170,7 +169,7 @@ namespace T4bJl3T04K4
         /// Поиск дублирования осуществляется по username.
         /// После регистрации отправляется сообщение с идентификатором нового пользователя.
         /// </summary>
-        private async Task RegisterAsync(RegisterData registerData)
+        public async Task RegisterAsync(RegisterData registerData)
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -331,7 +330,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Удаление фото пользователя по currentUserId.
         /// </summary>
-        private async Task DeletePhotoAsync()
+        public async Task DeletePhotoAsync()
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -356,15 +355,6 @@ namespace T4bJl3T04K4
                 _dbSemaphore.Release();
             }
         }
-
-        private void ResetSession()
-        {
-            currentUserId = Guid.Empty;
-            webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
-
-            logger.Info("Состояние приложения сброшено. Пользователь вышел.");
-        }
-
         private void LoadLoginPage()
         {
             var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
@@ -372,7 +362,7 @@ namespace T4bJl3T04K4
             logger.Info("Переход на страницу авторизации после удаления учётной записи.");
         }
 
-        private async Task DeleteAccountAsync()
+        public async Task DeleteAccountAsync()
         {
             await _dbSemaphore.WaitAsync();
             try
@@ -393,7 +383,8 @@ namespace T4bJl3T04K4
                 await dataBase.SaveChangesAsync();
 
                 logger.Info("Пользователь {0} удален.", user.Username);
-                ResetSession();
+                currentUserId = Guid.Empty;
+
                 SendSuccess("Учётная запись удалена");
                 LoadLoginPage();
             }
@@ -423,11 +414,11 @@ namespace T4bJl3T04K4
                         {
                             id = user.Id,
                             username = user.Username,
-                            firstname = user.FirstName ?? "",
-                            lastname = user.LastName ?? "",
+                            firstname = user.FirstName ?? string.Empty,
+                            lastname = user.LastName ?? string.Empty,
                             gender = user.Gender,
-                            dateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : "",
-                            picture = user.Picture ?? ""
+                            dateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : string.Empty,
+                            picture = user.Picture ?? string.Empty
                         };
                         webView.CoreWebView2.PostWebMessageAsJson(JsonConvert.SerializeObject(userData));
                     }
@@ -447,7 +438,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Генерация случайной соли для хэширования пароля.
         /// </summary>
-        private string GenerateSalt()
+        public string GenerateSalt()
         {
             var salt = new byte[32];
             using (var rand = RandomNumberGenerator.Create())
@@ -460,7 +451,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Вычисление хэша пароля с использованием соли.
         /// </summary>
-        private string HashPassword(string password, string salt)
+        public string HashPassword(string password, string salt)
         {
             using (var sha256 = SHA256.Create())
             {
@@ -469,12 +460,12 @@ namespace T4bJl3T04K4
                 return Convert.ToBase64String(bytes);
             }
         }
-        private void SendError(string message)
+        protected void SendError(string message)
         {
             webView.CoreWebView2.PostWebMessageAsJson(JsonConvert.SerializeObject(new { type = "error", message }));
         }
 
-        private void SendSuccess(string message)
+        protected void SendSuccess(string message)
         {
             webView.CoreWebView2.PostWebMessageAsJson(JsonConvert.SerializeObject(new { type = "success", message }));
         }
@@ -482,7 +473,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Загрузка кабинета пользователя (страница Cabinet.html) и перенастройка обработчиков WebView.
         /// </summary>
-        private void LoadUserCabinet()
+        protected void LoadUserCabinet()
         {
             var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "Cabinet.html");
             webView.Source = new Uri(htmlPath);
@@ -529,6 +520,26 @@ namespace T4bJl3T04K4
             {
                 var selectedSymptomIds = request.SelectedSymptomIds;
 
+                var newSearchHistory = new SearchHistory
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = currentUserId,
+                    SearchDate = DateTime.UtcNow
+                };
+                await dataBase.SearchHistories.AddAsync(newSearchHistory);
+
+                foreach (var symptomId in selectedSymptomIds)
+                {
+                    var shSymptom = new SearchHistorySymptom
+                    {
+                        SearchHistoryId = newSearchHistory.Id,
+                        SymptomId = symptomId
+                    };
+                    await dataBase.SearchHistorySymptoms.AddAsync(shSymptom);
+                }
+
+                await dataBase.SaveChangesAsync();
+
                 var diagnoses = await dataBase.Diseases
                     .Select(d => new
                     {
@@ -542,7 +553,7 @@ namespace T4bJl3T04K4
                     .Select(d => new
                     {
                         d.Name,
-                        MatchCount = d.SymptomIds.Intersect(selectedSymptomIds).Count(),
+                        MatchCount = d.SymptomIds.Intersect(selectedSymptomIds.Select(id => id)).Count(),
                         Total = d.SymptomIds.Count
                     })
                     .Where(d => d.MatchCount > 0)
@@ -567,6 +578,7 @@ namespace T4bJl3T04K4
                 _dbSemaphore.Release();
             }
         }
+
 
     }
 }

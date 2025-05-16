@@ -85,9 +85,7 @@ window.chrome.webview.addEventListener('message', event => {
     document.getElementById('birthdate').value = user.dateOfBirth || '';
 
     if (event.data.type === 'photo-updated') {
-        document.querySelector('.profile-pic img').src = event.data.user.picture
-            ? `data:image/jpeg;base64,${event.data.user.picture}`
-            : 'img/default-avatar.jpg';
+        document.querySelector('.profile-pic img').src = event.data.picture || 'img/default-avatar.jpg';
     }
     if (event.data.type === 'photo-deleted') {
         document.querySelector('.profile-pic img').src = 'img/default-avatar.jpg';

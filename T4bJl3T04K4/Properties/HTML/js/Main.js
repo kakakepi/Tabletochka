@@ -4,7 +4,6 @@ function onSystemChange() {
         window.chrome.webview.postMessage({ action: "getSymptoms", system });
       }
 
-      // Сброс старых результатов
       document.getElementById("symptomSection").style.display = "none";
       document.getElementById("symptomCheckboxes").innerHTML = "";
       const result = document.getElementById("diagnosisResult");

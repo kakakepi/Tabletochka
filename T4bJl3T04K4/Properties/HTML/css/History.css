@@ -1,11 +1,9 @@
-/* Сброс стилей */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* Фоновой стиль для body */
 body {
     font-family: 'Roboto', sans-serif;
     background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1&ipt=c01eaf67d5a18543a5745bcab6ac05af7becbb311d24f767f180cacd0f914f1b);
@@ -19,7 +17,6 @@ body {
     align-items: center;
 }
 
-/* Основной контейнер */
 .materialContainer {
     width: 100%;
     max-width: 800px;
@@ -28,7 +25,6 @@ body {
     z-index: 2;
 }
 
-/* Блок с эффектом размытия и закругленными углами */
 .box {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -42,7 +38,6 @@ body {
     transform: translateY(-5px);
 }
 
-/* Заголовок с декоративной линией слева */
 .title {
     font-size: 34px;
     font-weight: 700;
@@ -62,7 +57,6 @@ body {
     background: #ED2553;
 }
 
-/* Таблица истории */
 .container {
     padding: 20px 0;
 }
@@ -86,7 +80,6 @@ th {
     background-color: #f0f0f0;
 }
 
-/* Стили для бокового меню и оверлея */
 .overlay {
     position: fixed;
     top: 0;
@@ -143,7 +136,6 @@ th {
     font-size: 16px;
 }
 
-/* Кнопка-иконка для открытия меню в правом верхнем углу */
 .avatar-top {
     width: 50px;
     height: 50px;
@@ -157,7 +149,6 @@ th {
     cursor: pointer;
 }
 
-/* Адаптивные стили */
 @media (max-width: 768px) {
     .box {
         padding: 25px;
