@@ -30,20 +30,84 @@ header {
     z-index: 999;
 }
 
-.avatar-top {
-    width: 50px;
-    height: 50px;
+.button-group button:first-of-type {
     background: #ED2553;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: white;
-    font-size: 20px;
+}
+
+.button-group button:first-of-type:hover {
+    background: #c62828;
+}
+
+.button-group button:last-of-type {
+    background: #77d6cd;
+    color: white;
+}
+
+.button-group button:last-of-type:hover {
+    background: #4db6ac;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-group button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-/* Оверлей и боковая панель меню */
+.button-group button:first-of-type {
+    background: #77d6cd;
+    color: white;
+}
+
+.button-group button:first-of-type:hover {
+    background: #4db6ac;
+
+}
+
+.button-group button:last-of-type {
+
+    background: #ED2553;
+    color: white;
+}
+
+.button-group button:last-of-type:hover {
+    background: #c62828;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-group button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-group button:first-of-type {
+    background: #3498db;
+    color: white;
+}
+
+.button-group button:last-of-type {
+    background: #e74c3c;
+    color: white;
+}
+
+.button-group button:hover {
+    opacity: 0.9;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -98,6 +162,19 @@ header {
     display: none;
     margin-left: 20px;
     font-size: 16px;
+}
+
+.avatar-top {
+    width: 50px;
+    height: 50px;
+    background: #ED2553;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 /* Основной контент админ-панели */
