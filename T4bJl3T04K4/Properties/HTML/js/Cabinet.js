@@ -11,12 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.chrome.webview.addEventListener('message', event => {
         if (event.data.type === 'success') {
             alert(event.data.message);
+            location.reload();
         }
         if (event.data.type === 'error') {
             alert(`Ошибка: ${event.data.message}`);
+            location.reload();
+
         }
     });
 });
+let currentUser = null;
 
 function handleSubmit(e) {
     e.preventDefault();
@@ -34,6 +38,8 @@ function handleSubmit(e) {
     };
 
     window.chrome.webview.postMessage(data);
+    location.reload();
+
 }
 
 function resetForm() {
@@ -56,15 +62,20 @@ function uploadPhoto() {
                 });
             };
             reader.readAsDataURL(file);
+            location.reload();
+
         }
     };
 
     input.click();
+
 }
 
 function deletePhoto() {
     if (confirm('Вы уверены, что хотите удалить фото?')) {
         window.chrome.webview.postMessage({ action: "deletePhoto" });
+        location.reload();
+
     }
 }
 
@@ -73,25 +84,50 @@ function deleteAccount() {
         window.chrome.webview.postMessage({ action: "deleteAccount" });
     }
 }
+function checkAdmin() {
+    if (!currentUser) {
+        alert('Данные пользователя не загружены!');
+        return;
+    }
+    
+    if (currentUser.admin) { 
+        window.location.href = 'Admin.html';
+    } else {
+        alert('Ошибка: У вас нет прав администратора!');
+    }
+}
 
 window.chrome.webview.addEventListener('message', event => {
     const user = event.data;
     window.currentUserId = user.id;
-
+if (user.id) {
+        currentUser = {
+            id: user.id,
+            username: user.username,
+            admin: user.admin 
+        };
     document.getElementById('username').value = user.username || '';
     document.getElementById('lastname').value = user.lastname || '';
     document.getElementById('firstname').value = user.firstname || '';
     document.getElementById('gender').value = user.gender ? 'male' : 'female';
     document.getElementById('birthdate').value = user.dateOfBirth || '';
+    
 
     if (event.data.type === 'photo-updated') {
-        document.querySelector('.profile-pic img').src = event.data.user.picture
-            ? `data:image/jpeg;base64,${event.data.user.picture}`
-            : 'img/default-avatar.jpg';
+        document.querySelector('.profile-pic img').src = event.data.picture || 'images/default-avatar.jpg';
     }
     if (event.data.type === 'photo-deleted') {
-        document.querySelector('.profile-pic img').src = 'img/default-avatar.jpg';
+        document.querySelector('.profile-pic img').src = 'images/default-avatar.jpg';
     }
+
+    if (user.picture) {
+        document.getElementById('profileImage').src = `data:image/jpeg;base64,${user.picture}`;
+    }}
+     
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.chrome.webview.postMessage({ action: "getUserData" });
 });
 function togglePanel() {
   const overlay = document.querySelector('.overlay');
@@ -108,4 +144,7 @@ function togglePanel() {
 function toggleSubmenu(id) {
   const submenu = document.getElementById(id);
   submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+}
+function logout() {
+    window.chrome.webview.postMessage({ action: "logout" });
 }

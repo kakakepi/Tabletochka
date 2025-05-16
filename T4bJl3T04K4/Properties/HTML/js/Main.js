@@ -4,7 +4,6 @@ function onSystemChange() {
         window.chrome.webview.postMessage({ action: "getSymptoms", system });
       }
 
-      // Сброс старых результатов
       document.getElementById("symptomSection").style.display = "none";
       document.getElementById("symptomCheckboxes").innerHTML = "";
       const result = document.getElementById("diagnosisResult");
@@ -83,3 +82,7 @@ function onSystemChange() {
       const submenu = document.getElementById(id);
       submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
     }
+
+    function logout() {
+    window.chrome.webview.postMessage({ action: "logout" });
+}

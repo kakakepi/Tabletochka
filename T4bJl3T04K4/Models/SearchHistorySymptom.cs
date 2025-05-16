@@ -20,5 +20,6 @@ namespace T4bJl3T04K4
 
         [ForeignKey("SymptomId")]
         public virtual Symptom Symptom { get; set; }
+
     }
 }

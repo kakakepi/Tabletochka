@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tabletochka));
             webView = new Microsoft.Web.WebView2.WinForms.WebView2();
             ((System.ComponentModel.ISupportInitialize)webView).BeginInit();
             SuspendLayout();
@@ -39,21 +40,23 @@
             webView.DefaultBackgroundColor = Color.White;
             webView.Dock = DockStyle.Fill;
             webView.Location = new Point(0, 0);
+            webView.Margin = new Padding(6, 6, 6, 6);
             webView.Name = "webView";
-            webView.Size = new Size(933, 519);
+            webView.Size = new Size(1733, 1107);
             webView.TabIndex = 0;
             webView.ZoomFactor = 1D;
             webView.WebMessageReceived += WebView_WebMessageReceived;
             // 
-            // LoginRegistrationForm
+            // Tabletochka
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(933, 519);
+            ClientSize = new Size(1733, 1107);
             Controls.Add(webView);
-            Margin = new Padding(4);
-            Name = "LoginRegistrationForm";
-            Text = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(7, 9, 7, 9);
+            Name = "Tabletochka";
+            Text = "Tabletochka";
             ((System.ComponentModel.ISupportInitialize)webView).EndInit();
             ResumeLayout(false);
 

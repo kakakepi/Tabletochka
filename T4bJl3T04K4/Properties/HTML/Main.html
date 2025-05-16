@@ -3,46 +3,39 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Опросник симптомов</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/Main.css">
 </head>
 
 <body>
-
-  <!-- Верхняя панель -->
-  <header
-    style="position: fixed; top: 0; width: 100%; display: flex; justify-content: flex-end; align-items: center; padding: 10px 20px; z-index: 999;">
+  <header>
     <div class="avatar-top" onclick="togglePanel()">
       <i class="fa fa-user"></i>
     </div>
   </header>
 
-  <!-- Боковая панель -->
   <div class="overlay" onclick="togglePanel()"></div>
   <div class="side-panel" id="sidePanel">
     <div class="menu-title">Меню</div>
     <div class="menu-item"><a href="Main.html">Главная страница</a></div>
     <div class="menu-item"><a href="Cabinet.html">Личный кабинет</a></div>
     <div class="menu-item"><a href="History.html">История поиска</a></div>
-
     <div class="menu-item" onclick="toggleSubmenu('langSubmenu')">Язык</div>
     <div class="submenu" id="langSubmenu">
       <div>Русский</div>
       <div>Английский</div>
-      <div>Татарский</div>
     </div>
-
     <div class="menu-item" onclick="toggleSubmenu('supportSubmenu')">Техподдержка</div>
     <div class="submenu" id="supportSubmenu">
       <div>ГОРЯЧАЯ линия 24/7</div>
       <div>+79822552998</div>
     </div>
-
-    <div class="menu-item exit">Выход</div>
+    <div class="menu-item" style="color: red;" onclick="logout()">Выход</div>
   </div>
 
-  <!-- Основное содержимое -->
   <main>
     <h1>Опросник симптомов</h1>
     <h2>Выберите систему организма</h2>
@@ -51,6 +44,8 @@
       <option value="nervous">Нервная система</option>
       <option value="circulatory">Кровеносная система</option>
       <option value="muscular">Мышечная система</option>
+      <option value="skeletal">Костная система</option>
+      <option value="respiratory">Дыхательная система</option>
       <option value="digestive">Пищеварительная система</option>
       <option value="renal">Мочевыделительная система</option>
       <option value="immune">Иммунная система</option>

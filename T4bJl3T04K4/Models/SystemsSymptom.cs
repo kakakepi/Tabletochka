@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class SystemsSymptom
 {
     [Key]
+    [Column("id")]
     public Guid Id { get; set; }
 
     [Column("system_name")]

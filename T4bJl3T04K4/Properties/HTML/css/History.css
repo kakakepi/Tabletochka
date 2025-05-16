@@ -1,32 +1,64 @@
-body {
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
 }
 
-.header {
-    background-color: #8dd8d3;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #000;
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1&ipt=c01eaf67d5a18543a5745bcab6ac05af7becbb311d24f767f180cacd0f914f1b);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
-.profile-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid #555;
-    background-color: white;
-    margin-right: 10px;
+.materialContainer {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+}
+
+.title {
+    font-size: 34px;
+    font-weight: 700;
+    color: #ED2553;
+    margin-bottom: 40px;
+    position: relative;
+    padding-left: 50px;
+}
+
+.title:before {
+    content: "";
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ED2553;
 }
 
 .container {
-    padding: 20px;
+    padding: 20px 0;
 }
 
 table {
@@ -46,4 +78,80 @@ td {
 
 th {
     background-color: #f0f0f0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    z-index: 1000;
+}
+
+.side-panel {
+    right: -300px;
+    width: 300px;
+    background: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    transition: 0.4s;
+    z-index: 1000;
+}
+
+.menu-title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #ED2553;
+}
+
+.menu-item {
+    font-size: 18px;
+    color: teal;
+    cursor: pointer;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: teal;
+    display: block;
+    width: 100%;
+}
+
+.menu-item a:hover {
+    color: #ED2553;
+}
+
+.submenu {
+    display: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.avatar-top {
+    width: 50px;
+    height: 50px;
+    background: #ED2553;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .box {
+        padding: 25px;
+        margin: 15px;
+    }
 }

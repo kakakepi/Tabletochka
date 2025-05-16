@@ -1,14 +1,19 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
-    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1&ipt=c01eaf67d5a18543a5745bcab6ac05af7becbb311d24f767f180cacd0f914f1b);
-
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -18,20 +23,21 @@ header {
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     padding: 10px 20px;
-    background: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
 
 .avatar-top {
+    width: 50px;
+    height: 50px;
+    background: #ED2553;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
     cursor: pointer;
-}
-
-.avatar-top i {
-    font-size: 24px;
-    color: #d32f2f;
 }
 
 .overlay {
@@ -45,54 +51,71 @@ header {
     z-index: 998;
 }
 
-.side-panel {
+.overlay {
     position: fixed;
     top: 0;
-    right: -250px;
-    width: 250px;
+    left: 0;
+    width: 100%;
     height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    z-index: 1000;
+}
+
+.side-panel {
+    right: -300px;
+    width: 300px;
     background: #fff;
-    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease;
-    z-index: 999;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    transition: 0.4s;
+    z-index: 1000;
 }
 
 .menu-title {
-    padding: 20px;
     font-weight: bold;
-    border-bottom: 1px solid #ddd;
+    font-size: 24px;
+    color: #ED2553;
 }
 
 .menu-item {
-    padding: 15px 20px;
+    font-size: 18px;
+    color: teal;
+    cursor: pointer;
 }
 
 .menu-item a {
     text-decoration: none;
-    color: inherit;
+    color: teal;
+    display: block;
+    width: 100%;
 }
 
-.menu-item.exit {
-    color: red;
+.menu-item a:hover {
+    color: #ED2553;
 }
 
 .submenu {
     display: none;
-    padding-left: 30px;
+    margin-left: 20px;
+    font-size: 16px;
 }
 
-.submenu div {
-    padding: 5px 0;
-}
-
-/* Main content */
 main {
     max-width: 700px;
-    margin: 100px auto 40px auto;
+    margin: 100px auto 40px;
     background: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    z-index: 1;
 }
 
 h1,
@@ -100,6 +123,7 @@ h2,
 h3 {
     text-align: center;
     color: #d32f2f;
+    margin-bottom: 20px;
 }
 
 select,
@@ -144,6 +168,6 @@ button:hover {
 }
 
 .result ul {
-    margin: 10px 0 0 0;
+    margin: 10px 0 0 20px;
     padding-left: 20px;
 }

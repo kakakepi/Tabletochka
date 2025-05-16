@@ -1,0 +1,312 @@
+/* Сброс стилей */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Фон страницы */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgameranx.com%2Fwp-content%2Fuploads%2F2016%2F03%2FFirewatch-4K-Wallpaper-1.jpg&f=1&nofb=1");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Фиксированный header для кнопки меню */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    z-index: 999;
+}
+
+.button-group button:first-of-type {
+    background: #ED2553;
+    color: white;
+}
+
+.button-group button:first-of-type:hover {
+    background: #c62828;
+}
+
+.button-group button:last-of-type {
+    background: #77d6cd;
+    color: white;
+}
+
+.button-group button:last-of-type:hover {
+    background: #4db6ac;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-group button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-group button:first-of-type {
+    background: #77d6cd;
+    color: white;
+}
+
+.button-group button:first-of-type:hover {
+    background: #4db6ac;
+
+}
+
+.button-group button:last-of-type {
+
+    background: #ED2553;
+    color: white;
+}
+
+.button-group button:last-of-type:hover {
+    background: #c62828;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-group button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-group button:first-of-type {
+    background: #3498db;
+    color: white;
+}
+
+.button-group button:last-of-type {
+    background: #e74c3c;
+    color: white;
+}
+
+.button-group button:hover {
+    opacity: 0.9;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    z-index: 1000;
+}
+
+.side-panel {
+    right: -300px;
+    width: 300px;
+    background: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    transition: 0.4s;
+    z-index: 1000;
+}
+
+.menu-title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #ED2553;
+}
+
+.menu-item {
+    font-size: 18px;
+    color: teal;
+    cursor: pointer;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: teal;
+    display: block;
+    width: 100%;
+}
+
+.menu-item a:hover {
+    color: #ED2553;
+}
+
+.submenu {
+    display: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.avatar-top {
+    width: 50px;
+    height: 50px;
+    background: #ED2553;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Основной контент админ-панели */
+main {
+    max-width: 900px;
+    width: 90%;
+    background: white;
+    margin: 100px auto 40px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: #ED2553;
+    margin-bottom: 20px;
+}
+
+/* Стили для табов */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    border: none;
+    background: #f0f0f0;
+    color: #333;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.tab.active,
+.tab:hover {
+    background: #ED2553;
+    color: white;
+}
+
+/* Стили для форм и панелей */
+.panel {
+    margin-bottom: 40px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+.button-group {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.button-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.button-group button:first-of-type {
+    background: #ED2553;
+    color: white;
+}
+
+.button-group button:first-of-type:hover {
+    background: #c62828;
+}
+
+.button-group button:last-of-type {
+    background: #77d6cd;
+    color: white;
+}
+
+.button-group button:last-of-type:hover {
+    background: #4db6ac;
+}
+
+/* Стили для списков записей */
+#diseaseList,
+#symptomList {
+    margin-top: 20px;
+}
+
+.record {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+}

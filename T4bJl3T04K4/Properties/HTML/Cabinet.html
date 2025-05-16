@@ -11,8 +11,7 @@
 </head>
 
 <body>
-    <header
-        style="position: fixed; top: 0; width: 100%; display: flex; justify-content: flex-end; align-items: center; padding: 10px 20px; z-index: 999;">
+    <header>
         <div class="avatar-top" onclick="togglePanel()">
             <i class="fa fa-user"></i>
         </div>
@@ -22,21 +21,20 @@
     <div class="side-panel" id="sidePanel">
         <div class="menu-title">Меню</div>
         <div class="menu-item"><a href="Main.html">Главная страница</a></div>
-        <div class="menu-item"><a href="Сabinet.html">Личный кабинет</a></div>
+        <div class="menu-item"><a href="Cabinet.html">Личный кабинет</a></div>
         <div class="menu-item"><a href="History.html">История поиска</a></div>
 
         <div class="menu-item" onclick="toggleSubmenu('langSubmenu')">Язык</div>
         <div class="submenu" id="langSubmenu">
             <div>Русский</div>
             <div>Английский</div>
-            <div>Татарский</div>
         </div>
         <div class="menu-item" onclick="toggleSubmenu('supportSubmenu')">Техподдержка</div>
         <div class="submenu" id="supportSubmenu">
             <div>ГОРЯЧАЯ линия 24/7</div>
             <div>+79822552998</div>
         </div>
-        <div class="menu-item" style="color: red;">Выход</div>
+        <div class="menu-item" style="color: red;" onclick="logout()">Выход</div>
     </div>
 
     <div class="materialContainer">
@@ -45,13 +43,13 @@
 
             <div class="profile-section">
                 <div class="profile-pic">
-                    <img src="img/avatar.jpg" alt="Аватар">
+                    <img id="profileImage" src="images/default-avatar.png">
+
                 </div>
                 <div class="profile-actions">
                     <button class="button secondary" id="uploadBtn">
                         <i class="fas fa-upload"></i> Загрузить фото
                     </button>
-                    <!-- Предположим, что эта кнопка отвечает за удаление фото -->
                     <button class="button secondary" id="deleteBtn">
                         <i class="fas fa-trash"></i> Удалить фото
                     </button>
@@ -119,8 +117,9 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="button primary" id="deleteAccountBtn">Удалить аккаунт</button>
-                    <button type="button" class="button secondary" id="cancelBtn">Отмена</button>
+                    <!-- В HTML изменяем тип кнопки и добавляем обработчик -->
+                    <button type="button" class="button primary" onclick="checkAdmin()">Панель администратора</button>
+                    <button type="button" class="button secondary" id="deleteAccountBtn">Удалить аккаунт</button>
                     <button type="submit" class="button primary">Сохранить</button>
                 </div>
             </form>

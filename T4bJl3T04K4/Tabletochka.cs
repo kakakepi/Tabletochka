@@ -4,6 +4,7 @@ using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using NLog;
+using Newtonsoft.Json.Linq;
 
 namespace T4bJl3T04K4
 {
@@ -26,8 +27,7 @@ namespace T4bJl3T04K4
             try
             {
                 await webView.EnsureCoreWebView2Async(null);
-                webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
-                var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "Main.html");
+                var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
                 webView.Source = new Uri(htmlPath);
                 logger.Info("WebView2 успешно инициализирован и загружена страница LoginRegistration.html.");
             }
@@ -41,6 +41,8 @@ namespace T4bJl3T04K4
         private async void WebView_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs receivedArgs)
         {
             var json = receivedArgs.WebMessageAsJson;
+            var message = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+
             var baseData = System.Text.Json.JsonSerializer.Deserialize<BaseData>(json);
             switch (baseData.action)
             {
@@ -88,15 +90,52 @@ namespace T4bJl3T04K4
                 case "getSearchHistory":
                     await GetSearchHistoryAsync();
                     break;
+
+                case "logout":
+                    await LogoutAsync();
+                    break;
+
+                case "getDiseaseList":
+                    await HandleGetDiseaseList();
+                    break;
+
+                case "getSymptomList":
+                    await HandleGetSymptomList();
+                    break;
+
+                case "addDisease":
+                    await HandleAddOrUpdateDisease(message, isUpdate: false);
+                    break;
+
+                case "updateDisease":
+                    await HandleAddOrUpdateDisease(message, isUpdate: true);
+                    break;
+
+                case "deleteDisease":
+                    await HandleDeleteDisease(message);
+                    break;
+
+                case "addSymptom":
+                    await HandleAddOrUpdateSymptom(message, isUpdate: false);
+                    break;
+
+                case "updateSymptom":
+                    await HandleAddOrUpdateSymptom(message, isUpdate: true);
+                    break;
+
+                case "deleteSymptom":
+                    await HandleDeleteSymptom(message);
+                    break;
+
             }
         }
         private async Task GetSearchHistoryAsync()
         {
-                var histories = await dataBase.SearchHistories
-                .Where(sh => sh.UserId == currentUserId)
-                .Include(sh => sh.SearchHistorySymptoms)
-                    .ThenInclude(shs => shs.Symptom)
-                .ToListAsync();
+            var histories = await dataBase.SearchHistories
+            .Where(sh => sh.UserId == currentUserId)
+            .Include(sh => sh.SearchHistorySymptoms)
+                .ThenInclude(shs => shs.Symptom)
+            .ToListAsync();
 
             var result = histories.Select(sh => new
             {
@@ -214,8 +253,12 @@ namespace T4bJl3T04K4
                 };
                 await dataBase.Users.AddAsync(newUser);
                 await dataBase.SaveChangesAsync();
+
+                currentUserId = newUser.Id;
+                LoadUserCabinet();
                 logger.Info("Новый пользователь {0} успешно зарегистрирован. Id: {1}", registerData.username, newUser.Id);
                 SendSuccess("Регистрация прошла успешно. Ваш идентификатор: " + newUser.Id);
+
             }
             catch (DbUpdateException dbEx)
             {
@@ -253,7 +296,16 @@ namespace T4bJl3T04K4
                 user.LastName = profileData.Lastname;
                 user.Gender = !string.IsNullOrEmpty(profileData.Gender) &&
                                 profileData.Gender.Equals("male", StringComparison.OrdinalIgnoreCase);
-                user.DateOfBirth = DateTime.Parse(profileData.Birthdate);
+                if (!DateTime.TryParse(profileData.Birthdate, out var parsedDate))
+                {
+                    SendError("Неверный формат даты рождения");
+                    return;
+                }
+                user.DateOfBirth = parsedDate.ToUniversalTime();
+
+
+
+
                 if (!string.IsNullOrEmpty(profileData.OldPassword) && !string.IsNullOrEmpty(profileData.NewPassword))
                 {
                     var oldPassHash = HashPassword(profileData.OldPassword, user.Salt);
@@ -352,15 +404,6 @@ namespace T4bJl3T04K4
                 _dbSemaphore.Release();
             }
         }
-
-        private void ResetSession()
-        {
-            currentUserId = Guid.Empty;
-            webView.CoreWebView2.WebMessageReceived += WebView_WebMessageReceived;
-
-            logger.Info("Состояние приложения сброшено. Пользователь вышел.");
-        }
-
         private void LoadLoginPage()
         {
             var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
@@ -380,18 +423,17 @@ namespace T4bJl3T04K4
                     return;
                 }
 
-                // Удаляем все записи истории входов, ссылающиеся на пользователя.
                 var loginHistories = dataBase.LoginHistories.Where(lh => lh.UserId == currentUserId);
                 dataBase.LoginHistories.RemoveRange(loginHistories);
 
-                // При необходимости можно удалить и историю поиска.
                 var searchHistories = dataBase.SearchHistories.Where(sh => sh.UserId == currentUserId);
                 dataBase.SearchHistories.RemoveRange(searchHistories);
                 dataBase.Users.Remove(user);
                 await dataBase.SaveChangesAsync();
 
                 logger.Info("Пользователь {0} удален.", user.Username);
-                ResetSession();
+                currentUserId = Guid.Empty;
+
                 SendSuccess("Учётная запись удалена");
                 LoadLoginPage();
             }
@@ -421,11 +463,12 @@ namespace T4bJl3T04K4
                         {
                             id = user.Id,
                             username = user.Username,
-                            firstname = user.FirstName ?? "",
-                            lastname = user.LastName ?? "",
+                            firstname = user.FirstName ?? string.Empty,
+                            lastname = user.LastName ?? string.Empty,
                             gender = user.Gender,
-                            dateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : "",
-                            picture = user.Picture ?? ""
+                            dateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : string.Empty,
+                            picture = user.Picture ?? string.Empty,
+                            admin = user.Admin
                         };
                         webView.CoreWebView2.PostWebMessageAsJson(JsonConvert.SerializeObject(userData));
                     }
@@ -527,7 +570,26 @@ namespace T4bJl3T04K4
             {
                 var selectedSymptomIds = request.SelectedSymptomIds;
 
-                // Найдём диагнозы, у которых есть совпадающие симптомы
+                var newSearchHistory = new SearchHistory
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = currentUserId,
+                    SearchDate = DateTime.UtcNow
+                };
+                await dataBase.SearchHistories.AddAsync(newSearchHistory);
+
+                foreach (var symptomId in selectedSymptomIds)
+                {
+                    var shSymptom = new SearchHistorySymptom
+                    {
+                        SearchHistoryId = newSearchHistory.Id,
+                        SymptomId = symptomId
+                    };
+                    await dataBase.SearchHistorySymptoms.AddAsync(shSymptom);
+                }
+
+                await dataBase.SaveChangesAsync();
+
                 var diagnoses = await dataBase.Diseases
                     .Select(d => new
                     {
@@ -541,7 +603,7 @@ namespace T4bJl3T04K4
                     .Select(d => new
                     {
                         d.Name,
-                        MatchCount = d.SymptomIds.Intersect(selectedSymptomIds).Count(),
+                        MatchCount = d.SymptomIds.Intersect(selectedSymptomIds.Select(id => id)).Count(),
                         Total = d.SymptomIds.Count
                     })
                     .Where(d => d.MatchCount > 0)
@@ -567,5 +629,229 @@ namespace T4bJl3T04K4
             }
         }
 
+        public async Task LogoutAsync()
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                logger.Info("Пользователь с Id {0} вышел из системы.", currentUserId);
+                currentUserId = Guid.Empty;
+                LoadLoginPage();
+                SendSuccess("Вы успешно вышли из системы");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при выходе пользователя с Id: {0}", currentUserId);
+                SendError("Ошибка выхода: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+        private async Task HandleGetDiseaseList()
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var diseases = await dataBase.Diseases
+                    .Select(d => new
+                    {
+                        d.Id,
+                        d.NameRu,
+                        d.DescriptionRu,
+                        SymptomIds = d.DiseaseSymptoms.Select(ds => ds.SymptomId).ToList()
+                    })
+                    .ToListAsync();
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    type = "diseaseList",
+                    data = diseases.Select(d => new
+                    {
+                        d.Id,
+                        Name = d.NameRu,
+                        Description = d.DescriptionRu,
+                        SymptomIds = string.Join(",", d.SymptomIds)
+                    })
+                });
+
+                webView.CoreWebView2.PostWebMessageAsJson(json);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+        private async Task HandleGetSymptomList()
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var symptoms = await dataBase.Symptoms
+                    .Select(s => new
+                    {
+                        s.Id,
+                        Name = s.NameRu,
+                        DiseaseId = s.DiseaseSymptoms.Select(ds => ds.DiseaseId).FirstOrDefault()
+                    })
+                    .ToListAsync();
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    type = "symptomList",
+                    data = symptoms
+                });
+
+                webView.CoreWebView2.PostWebMessageAsJson(json);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+        private async Task HandleAddOrUpdateDisease(Dictionary<string, object> message, bool isUpdate)
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var id = isUpdate ? Guid.Parse(message["id"].ToString()) : Guid.NewGuid();
+                var name = message["name"].ToString();
+                var description = message["description"].ToString();
+                var symptomIds = ((JArray)message["symptomIds"]).Select(s => Guid.Parse(s.ToString())).ToList();
+
+                Disease disease;
+                if (isUpdate)
+                {
+                    disease = await dataBase.Diseases.Include(d => d.DiseaseSymptoms).FirstOrDefaultAsync(d => d.Id == id);
+                    if (disease == null) return;
+
+                    disease.NameRu = name;
+                    disease.DescriptionRu = description;
+
+                    dataBase.DiseaseSymptoms.RemoveRange(disease.DiseaseSymptoms);
+                }
+                else
+                {
+                    disease = new Disease
+                    {
+                        Id = id,
+                        NameRu = name,
+                        DescriptionRu = description
+                    };
+                    await dataBase.Diseases.AddAsync(disease);
+                }
+
+                foreach (var symptomId in symptomIds)
+                {
+                    var ds = new DiseaseSymptom { DiseaseId = id, SymptomId = symptomId };
+                    await dataBase.DiseaseSymptoms.AddAsync(ds);
+                }
+
+                await dataBase.SaveChangesAsync();
+                SendSuccess("Болезнь успешно сохранена");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при сохранении болезни");
+                SendError("Ошибка при сохранении болезни: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+        private async Task HandleDeleteDisease(Dictionary<string, object> message)
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var id = Guid.Parse(message["id"].ToString());
+                var disease = await dataBase.Diseases.Include(d => d.DiseaseSymptoms).FirstOrDefaultAsync(d => d.Id == id);
+                if (disease == null) return;
+
+                dataBase.DiseaseSymptoms.RemoveRange(disease.DiseaseSymptoms);
+                dataBase.Diseases.Remove(disease);
+                await dataBase.SaveChangesAsync();
+                SendSuccess("Болезнь удалена");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при удалении болезни");
+                SendError("Ошибка при удалении болезни: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+        private async Task HandleAddOrUpdateSymptom(Dictionary<string, object> message, bool isUpdate)
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var id = isUpdate ? Guid.Parse(message["id"].ToString()) : Guid.NewGuid();
+                var name = message["name"].ToString();
+                var diseaseId = Guid.Parse(message["diseaseId"].ToString());
+
+                Symptom symptom;
+                if (isUpdate)
+                {
+                    symptom = await dataBase.Symptoms.Include(s => s.DiseaseSymptoms).FirstOrDefaultAsync(s => s.Id == id);
+                    if (symptom == null) return;
+
+                    symptom.NameRu = name;
+
+                    dataBase.DiseaseSymptoms.RemoveRange(symptom.DiseaseSymptoms);
+                }
+                else
+                {
+                    symptom = new Symptom { Id = id, NameRu = name };
+                    await dataBase.Symptoms.AddAsync(symptom);
+                }
+
+                await dataBase.DiseaseSymptoms.AddAsync(new DiseaseSymptom
+                {
+                    DiseaseId = diseaseId,
+                    SymptomId = id
+                });
+
+                await dataBase.SaveChangesAsync();
+                SendSuccess("Симптом успешно сохранён");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при сохранении симптома");
+                SendError("Ошибка при сохранении симптома: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
+        private async Task HandleDeleteSymptom(Dictionary<string, object> message)
+        {
+            await _dbSemaphore.WaitAsync();
+            try
+            {
+                var id = Guid.Parse(message["id"].ToString());
+                var symptom = await dataBase.Symptoms.Include(s => s.DiseaseSymptoms).FirstOrDefaultAsync(s => s.Id == id);
+                if (symptom == null) return;
+
+                dataBase.DiseaseSymptoms.RemoveRange(symptom.DiseaseSymptoms);
+                dataBase.Symptoms.Remove(symptom);
+                await dataBase.SaveChangesAsync();
+                SendSuccess("Симптом удалён");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при удалении симптома");
+                SendError("Ошибка при удалении симптома: " + ex.Message);
+            }
+            finally
+            {
+                _dbSemaphore.Release();
+            }
+        }
     }
 }
