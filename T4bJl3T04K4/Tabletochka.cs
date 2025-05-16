@@ -510,12 +510,12 @@ namespace T4bJl3T04K4
                 return Convert.ToBase64String(bytes);
             }
         }
-        protected void SendError(string message)
+        protected virtual void SendError(string message)
         {
             webView.CoreWebView2.PostWebMessageAsJson(JsonConvert.SerializeObject(new { type = "error", message }));
         }
 
-        protected void SendSuccess(string message)
+        protected virtual void SendSuccess(string message)
         {
             webView.CoreWebView2.PostWebMessageAsJson(JsonConvert.SerializeObject(new { type = "success", message }));
         }
@@ -523,7 +523,7 @@ namespace T4bJl3T04K4
         /// <summary>
         /// Загрузка кабинета пользователя (страница Cabinet.html) и перенастройка обработчиков WebView.
         /// </summary>
-        protected void LoadUserCabinet()
+        protected virtual void LoadUserCabinet()
         {
             var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "Cabinet.html");
             webView.Source = new Uri(htmlPath);
