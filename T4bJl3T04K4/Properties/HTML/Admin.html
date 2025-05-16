@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Админ-панель управления данными</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/Admin.css">
+</head>
+
+<body>
+    <header>
+        <div class="avatar-top" onclick="togglePanel()">
+            <i class="fa fa-user"></i>
+        </div>
+    </header>
+
+    <div class="overlay" onclick="togglePanel()"></div>
+    <div class="side-panel" id="sidePanel">
+        <div class="menu-title">Меню</div>
+        <div class="menu-item"><a href="Main.html">Главная страница</a></div>
+        <div class="menu-item"><a href="Cabinet.html">Личный кабинет</a></div>
+        <div class="menu-item"><a href="History.html">История поиска</a></div>
+        <div class="menu-item" onclick="toggleSubmenu('langSubmenu')">Язык</div>
+        <div class="submenu" id="langSubmenu">
+            <div>Русский</div>
+            <div>Английский</div>
+        </div>
+        <div class="menu-item" onclick="toggleSubmenu('supportSubmenu')">Техподдержка</div>
+        <div class="submenu" id="supportSubmenu">
+            <div>ГОРЯЧАЯ линия 24/7</div>
+            <div>+79822552998</div>
+        </div>
+        <div class="menu-item" style="color: red;" onclick="logout()">Выход</div>
+    </div>
+
+    <main>
+        <h1>Админ-панель</h1>
+        <div class="tabs">
+            <button id="tabDisease" class="tab active" onclick="showTab('disease')">Болезни</button>
+            <button id="tabSymptom" class="tab" onclick="showTab('symptom')">Симптомы</button>
+        </div>
+
+        <div id="diseasePanel" class="panel">
+            <h2>Добавить / Редактировать болезнь</h2>
+            <form id="diseaseForm">
+                <input type="hidden" id="diseaseId" value="">
+                <label for="diseaseName">Название болезни:</label>
+                <input type="text" id="diseaseName" required placeholder="Введите название">
+                <label for="diseaseDescription">Описание:</label>
+                <textarea id="diseaseDescription" required placeholder="Введите описание"></textarea>
+                <label for="diseaseSymptomIds">Связанные симптомы (ID, через запятую):</label>
+                <input type="text" id="diseaseSymptomIds" placeholder="например: id1,id2,...">
+                <div class="button-group">
+                    <button type="button" id="saveDiseaseBtn" onclick="saveDisease()">Сохранить</button>
+                    <button type="button" id="resetDiseaseBtn" onclick="resetDiseaseForm()">Сбросить</button>
+                </div>
+            </form>
+            <h2>Список болезней</h2>
+            <div id="diseaseList">
+            </div>
+        </div>
+
+        <div id="symptomPanel" class="panel" style="display:none;">
+            <h2>Добавить / Редактировать симптом</h2>
+            <form id="symptomForm">
+                <input type="hidden" id="symptomId" value="">
+                <label for="symptomName">Название симптома:</label>
+                <input type="text" id="symptomName" required placeholder="Введите название">
+                <label for="symptomDiseaseId">ID болезни:</label>
+                <input type="text" id="symptomDiseaseId" required placeholder="Введите ID болезни">
+                <h2>Выберите систему организма</h2>
+                <select id="systemSelect" onchange="onSystemChange()">
+                    <option value="">-- Выберите систему --</option>
+                    <option value="nervous">Нервная система</option>
+                    <option value="circulatory">Кровеносная система</option>
+                    <option value="muscular">Мышечная система</option>
+                    <option value="skeletal">Костная система</option>
+                    <option value="digestive">Пищеварительная система</option>
+                    <option value="renal">Мочевыделительная система</option>
+                    <option value="immune">Иммунная система</option>
+                </select>
+                <div class="button-group">
+                    <button type="button" id="saveSymptomBtn" onclick="saveSymptom()">Сохранить</button>
+                    <button type="button" id="resetSymptomBtn" onclick="resetSymptomForm()">Сбросить</button>
+                </div>
+            </form>
+            <h2>Список симптомов</h2>
+            <div id="symptomList">
+            </div>
+        </div>
+    </main>
+
+    <script src="js/Admin.js"></script>
+</body>
+
+</html>
