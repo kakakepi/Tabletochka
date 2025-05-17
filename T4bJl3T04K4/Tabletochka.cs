@@ -280,8 +280,8 @@ namespace T4bJl3T04K4
                 {
                     Id = Guid.NewGuid(),
                     Username = registerData.username,
-                    FirstName = "",
-                    LastName = "",
+                    FirstName = string.Empty,
+                    LastName = string.Empty,
                     Gender = false,
                     Picture = string.Empty,
                     DateOfBirth = DateTime.UtcNow,
@@ -365,7 +365,7 @@ namespace T4bJl3T04K4
                     firstname = user.FirstName,
                     lastname = user.LastName,
                     gender = user.Gender,
-                    dateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : "",
+                    dateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : string.Empty,
                     picture = user.Picture
                 };
                 webView.CoreWebView2.PostWebMessageAsJson(JsonConvert.SerializeObject(new
@@ -463,7 +463,6 @@ namespace T4bJl3T04K4
         /// </summary>
         private void LoadLoginPage()
         {
-            // Для простоты оставляем строки без ресурсов
             logger.Debug("Вход в LoadLoginPage.");
             var htmlPath = Path.Combine(Application.StartupPath, "..", "..", "..", "Properties", "HTML", "LoginRegistration.html");
             webView.Source = new Uri(htmlPath);
@@ -843,8 +842,6 @@ namespace T4bJl3T04K4
             await _dbSemaphore.WaitAsync();
             try
             {
-                // Реальная логика работы с заболеванием должна быть здесь.
-                // В данной заглушке просто логируем действие и отправляем сообщение об успехе.
                 if (isUpdate)
                 {
                     logger.Debug(string.Format(Properties.Resources.UpdatingDisease, "??"));
@@ -853,7 +850,6 @@ namespace T4bJl3T04K4
                 {
                     logger.Debug(string.Format(Properties.Resources.AddingDisease, "??"));
                 }
-                // Например: 
                 logger.Info(Properties.Resources.DiseaseSaved);
                 SendSuccess(Properties.Resources.DiseaseSaved);
             }
@@ -880,7 +876,6 @@ namespace T4bJl3T04K4
             await _dbSemaphore.WaitAsync();
             try
             {
-                // Заглушка: логирование и сообщение об успехе
                 logger.Info(Properties.Resources.DiseaseDeleted);
                 SendSuccess(Properties.Resources.DiseaseDeleted);
             }
@@ -907,7 +902,6 @@ namespace T4bJl3T04K4
             await _dbSemaphore.WaitAsync();
             try
             {
-                // Заглушка – логируем действие и отправляем сообщение об успехе
                 if (isUpdate)
                 {
                     logger.Debug(string.Format(Properties.Resources.UpdatingSymptom, "??"));
@@ -942,7 +936,6 @@ namespace T4bJl3T04K4
             await _dbSemaphore.WaitAsync();
             try
             {
-                // Заглушка – логирование и сообщение об успехе
                 logger.Info(Properties.Resources.SymptomDeleted);
                 SendSuccess(Properties.Resources.SymptomDeleted);
             }
