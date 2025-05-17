@@ -4,37 +4,24 @@ using T4bJl3T04K4.Properties;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using NLog.Web;
 
 namespace T4bJl3T04K4
 {
     internal static class Program
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
+
+
 
         [STAThread]
         static void Main()
         {
-            var config = new LoggingConfiguration();
-            var consoleTarget = new ColoredConsoleTarget("console")
-            {
-                Layout = "${longdate} ${level:uppercase=true} ${logger} ${message} ${exception}"
-            };
-            config.AddTarget(consoleTarget);
-            config.AddRuleForAllLevels(consoleTarget);
-            LogManager.Configuration = config;
-
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
-            logger.Info("Приложение запущено.");
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EnvReader.Load("../../../../.env");
             if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DB_HOST")))
             {
-                MessageBox.Show(Resources.conString, Resources.errorTitle,
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Process.GetCurrentProcess().Kill();
             }
             var host = Environment.GetEnvironmentVariable("DB_HOST");
