@@ -104,6 +104,16 @@ header {
     color: white;
 }
 
+.button-group button:delete-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.button-group button:edit-btn {
+    background: #3498db;
+    color: white;
+}
+
 .button-group button:hover {
     opacity: 0.9;
 }
