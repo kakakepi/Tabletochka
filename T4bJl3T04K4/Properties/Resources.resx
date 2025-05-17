@@ -1,68 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema
-
-    Version 2.0
-
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    Namespaces: 
-    http://www.w3.org/XML/1998/namespace
-  -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-      xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <!-- Microsoft ResX Schema 
+       (Остальной комментарий опущен для краткости) -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-              <xsd:attribute name="type" type="xsd:string" use="required" />
-              <xsd:attribute name="mimetype" type="xsd:string" use="required" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" use="required" />
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" 
-                             msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" 
-                             minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-              <xsd:attribute name="type" type="xsd:string" use="optional" />
-              <xsd:attribute name="mimetype" type="xsd:string" use="optional" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" 
-                             minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
       </xsd:complexType>
-      <xsd:attribute name="version" type="xsd:string" use="required" />
-      <xsd:attribute name="generator" type="xsd:string" use="required" />
-      <xsd:attribute name="dataVersion" type="xsd:string" use="required" />
+      <xsd:unique name="UniqueName">
+        <xsd:selector xpath="data"/>
+        <xsd:field xpath="@name"/>
+      </xsd:unique>
     </xsd:element>
   </xsd:schema>
+  
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -70,74 +60,475 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  
-  <!-- Список строковых ресурсов -->
-  <data name="ErrorInitialization" xml:space="preserve">
-    <value>Ошибка инициализации: {0}</value>
+
+  <!-- Общие сообщения (конструктор, инициализация) -->
+  <data name="EnterConstructor" xml:space="preserve">
+    <value>Вход в конструктор Tabletochka.</value>
   </data>
-  <data name="ErrorLogin" xml:space="preserve">
-    <value>Неверное имя пользователя или пароль</value>
+  <data name="ExitConstructor" xml:space="preserve">
+    <value>Выход из конструктора Tabletochka.</value>
+  </data>
+  <data name="FormInitialized" xml:space="preserve">
+    <value>Форма Tabletochka инициализирована.</value>
+  </data>
+  <data name="EnterInitializeWebViewAsync" xml:space="preserve">
+    <value>Вход в метод InitializeWebViewAsync.</value>
+  </data>
+  <data name="WebViewLoaded" xml:space="preserve">
+    <value>WebView2 успешно инициализирован и загружена страница LoginRegistration.html.</value>
+  </data>
+  <data name="ExitInitializeWebViewAsync" xml:space="preserve">
+    <value>Выход из метода InitializeWebViewAsync.</value>
+  </data>
+  <data name="ErrorInitializingWebView" xml:space="preserve">
+    <value>Ошибка при инициализации WebView2.</value>
+  </data>
+
+  <!-- WebMessageReceived -->
+  <data name="EnterWebMessageReceived" xml:space="preserve">
+    <value>Вход в WebView_WebMessageReceived.</value>
+  </data>
+  <data name="ReceivedJsonMessage" xml:space="preserve">
+    <value>Получено JSON сообщение: {0}</value>
+  </data>
+  <data name="ReceivedAction" xml:space="preserve">
+    <value>Получено действие: {0}</value>
+  </data>
+  <data name="ProcessActionLogin" xml:space="preserve">
+    <value>Обработка действия 'login'.</value>
+  </data>
+  <data name="ReceivedLoginMessage" xml:space="preserve">
+    <value>Получено сообщение для входа. Пользователь: {0}</value>
+  </data>
+  <data name="ProcessActionRegister" xml:space="preserve">
+    <value>Обработка действия 'register'.</value>
+  </data>
+  <data name="ReceivedRegisterMessage" xml:space="preserve">
+    <value>Получено сообщение для регистрации. Новый пользователь: {0}</value>
+  </data>
+  <data name="ProcessGetSymptoms" xml:space="preserve">
+    <value>Обработка действия 'getSymptoms'.</value>
+  </data>
+  <data name="ProcessDiagnose" xml:space="preserve">
+    <value>Обработка действия 'diagnose'.</value>
+  </data>
+  <data name="ProcessUpdateProfile" xml:space="preserve">
+    <value>Обработка действия 'updateProfile'.</value>
+  </data>
+  <data name="ProcessUploadPhoto" xml:space="preserve">
+    <value>Обработка действия 'uploadPhoto'.</value>
+  </data>
+  <data name="PhotoUpdated" xml:space="preserve">
+    <value>Фото обновлено 'uploadPhoto'.</value>
+  </data>
+  <data name="PhotoDeleted" xml:space="preserve">
+    <value>Фото удалено 'deletePhoto'.</value>
+  </data>
+  <data name="ProcessDeletePhoto" xml:space="preserve">
+    <value>Обработка действия 'deletePhoto'.</value>
+  </data>
+  <data name="ProcessDeleteAccount" xml:space="preserve">
+    <value>Обработка действия 'deleteAccount'.</value>
+  </data>
+  <data name="ProcessGetSearchHistory" xml:space="preserve">
+    <value>Обработка действия 'getSearchHistory'.</value>
+  </data>
+  <data name="ProcessLogout" xml:space="preserve">
+    <value>Обработка действия 'logout'.</value>
+  </data>
+  <data name="ProcessGetDiseaseList" xml:space="preserve">
+    <value>Обработка действия 'getDiseaseList'.</value>
+  </data>
+  <data name="ProcessGetSymptomList" xml:space="preserve">
+    <value>Обработка действия 'getSymptomList'.</value>
+  </data>
+  <data name="ProcessAddDisease" xml:space="preserve">
+    <value>Обработка действия 'addDisease'.</value>
+  </data>
+  <data name="ProcessUpdateDisease" xml:space="preserve">
+    <value>Обработка действия 'updateDisease'.</value>
+  </data>
+  <data name="ProcessDeleteDisease" xml:space="preserve">
+    <value>Обработка действия 'deleteDisease'.</value>
+  </data>
+  <data name="ProcessAddSymptom" xml:space="preserve">
+    <value>Обработка действия 'addSymptom'.</value>
+  </data>
+  <data name="ProcessUpdateSymptom" xml:space="preserve">
+    <value>Обработка действия 'updateSymptom'.</value>
+  </data>
+  <data name="ProcessDeleteSymptom" xml:space="preserve">
+    <value>Обработка действия 'deleteSymptom'.</value>
+  </data>
+  <data name="UnknownAction" xml:space="preserve">
+    <value>Получено неизвестное действие: {0}</value>
+  </data>
+  <data name="ExitWebMessageReceived" xml:space="preserve">
+    <value>Выход из WebView_WebMessageReceived.</value>
+  </data>
+
+  <!-- GetSearchHistoryAsync -->
+  <data name="EnterGetSearchHistoryAsync" xml:space="preserve">
+    <value>Вход в метод GetSearchHistoryAsync.</value>
+  </data>
+  <data name="SearchHistoryCount" xml:space="preserve">
+    <value>Получено {0} записей истории поиска для пользователя {1}.</value>
+  </data>
+  <data name="ExitGetSearchHistoryAsync" xml:space="preserve">
+    <value>Выход из метода GetSearchHistoryAsync.</value>
+  </data>
+
+  <!-- LoginAsync -->
+  <data name="EnterLoginAsync" xml:space="preserve">
+    <value>Вход в LoginAsync для пользователя: {0}</value>
+  </data>
+  <data name="ExitLoginAsync" xml:space="preserve">
+    <value>Выход из LoginAsync для пользователя: {0}</value>
+  </data>
+  <data name="EmptyUsername" xml:space="preserve">
+    <value>Имя пользователя не может быть пустым</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>Пользователь не найден</value>
   </data>
-  <data name="EmptyUsernamePassword" xml:space="preserve">
-    <value>Имя пользователя и пароль не могут быть пустыми</value>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Неверное имя пользователя или пароль</value>
   </data>
-  <data name="PasswordsDoNotMatch" xml:space="preserve">
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Пользователь {0} успешно авторизовался.</value>
+  </data>
+
+  <!-- RegisterAsync -->
+  <data name="EnterRegisterAsync" xml:space="preserve">
+    <value>Вход в RegisterAsync для пользователя: {0}</value>
+  </data>
+  <data name="ExitRegisterAsync" xml:space="preserve">
+    <value>Выход из RegisterAsync для пользователя: {0}</value>
+  </data>
+  <data name="PasswordsNotMatch" xml:space="preserve">
     <value>Пароли не совпадают</value>
   </data>
-  <data name="ShortPassword" xml:space="preserve">
+  <data name="InsufficientPasswordLength" xml:space="preserve">
     <value>Пароль должен быть не менее 8 символов</value>
   </data>
-  <data name="UserExists" xml:space="preserve">
+  <data name="UserAlreadyExists" xml:space="preserve">
     <value>Пользователь с таким именем уже существует</value>
   </data>
   <data name="RegistrationSuccess" xml:space="preserve">
     <value>Регистрация прошла успешно. Ваш идентификатор: {0}</value>
   </data>
-  <data name="ErrorRegistration" xml:space="preserve">
-    <value>Ошибка регистрации: {0}</value>
+
+  <!-- UpdateProfileAsync -->
+  <data name="EnterUpdateProfileAsync" xml:space="preserve">
+    <value>Вход в UpdateProfileAsync для пользователя: {0}</value>
   </data>
-  <data name="LoginSuccess" xml:space="preserve">
-    <value>Пользователь {0} успешно авторизовался</value>
+  <data name="ProfileUserNotFound" xml:space="preserve">
+    <value>Пользователь не найден в UpdateProfileAsync для currentUserId: {0}</value>
   </data>
-  <data name="ErrorProfileUpdate" xml:space="preserve">
-    <value>Ошибка обновления профиля: {0}</value>
+  <data name="InvalidBirthdateFormat" xml:space="preserve">
+    <value>Неверный формат даты рождения в UpdateProfileAsync для пользователя: {0}</value>
+  </data>
+  <data name="WrongOldPassword" xml:space="preserve">
+    <value>Неверный старый пароль в UpdateProfileAsync для пользователя: {0}</value>
+  </data>
+  <data name="PasswordUpdated" xml:space="preserve">
+    <value>Пароль обновлен в UpdateProfileAsync для пользователя: {0}</value>
   </data>
   <data name="ProfileUpdated" xml:space="preserve">
-    <value>Профиль обновлен</value>
+    <value>Профиль пользователя {0} успешно обновлен.</value>
   </data>
-  <data name="ErrorPhotoUpload" xml:space="preserve">
-    <value>Ошибка загрузки фото: {0}</value>
+  <data name="ExitUpdateProfileAsync" xml:space="preserve">
+    <value>Выход из UpdateProfileAsync для пользователя: {0}</value>
+  </data>
+
+  <!-- UploadPhotoAsync -->
+  <data name="EnterUploadPhotoAsync" xml:space="preserve">
+    <value>Вход в UploadPhotoAsync. Длина изображения: {0}</value>
+  </data>
+  <data name="UserNotFoundUploadPhoto" xml:space="preserve">
+    <value>Пользователь не найден в UploadPhotoAsync для currentUserId: {0}</value>
+  </data>
+  <data name="ExitUploadPhotoAsync" xml:space="preserve">
+    <value>Выход из UploadPhotoAsync.</value>
+  </data>
+  <data name="UploadPhotoSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в UploadPhotoAsync.</value>
   </data>
   <data name="PhotoUpdated" xml:space="preserve">
-    <value>Фото пользователя успешно обновлено</value>
+    <value>Фото пользователя {0} успешно обновлено.</value>
   </data>
-  <data name="ErrorPhotoDelete" xml:space="preserve">
-    <value>Ошибка удаления фото: {0}</value>
+
+  <!-- DeletePhotoAsync -->
+  <data name="EnterDeletePhotoAsync" xml:space="preserve">
+    <value>Вход в DeletePhotoAsync.</value>
+  </data>
+  <data name="UserNotFoundDeletePhoto" xml:space="preserve">
+    <value>Пользователь не найден в DeletePhotoAsync для currentUserId: {0}</value>
+  </data>
+  <data name="ExitDeletePhotoAsync" xml:space="preserve">
+    <value>Выход из DeletePhotoAsync.</value>
+  </data>
+  <data name="DeletePhotoSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в DeletePhotoAsync.</value>
   </data>
   <data name="PhotoDeleted" xml:space="preserve">
-    <value>Фото пользователя успешно удалено</value>
+    <value>Фото пользователя {0} успешно удалено.</value>
   </data>
-  <data name="AccountDeleted" xml:space="preserve">
+
+  <!-- DeleteAccountAsync -->
+  <data name="EnterDeleteAccountAsync" xml:space="preserve">
+    <value>Вход в DeleteAccountAsync для пользователя с Id: {0}</value>
+  </data>
+  <data name="UserNotFoundDeleteAccount" xml:space="preserve">
+    <value>Пользователь не найден в DeleteAccountAsync для currentUserId: {0}</value>
+  </data>
+  <data name="AccountDeletedSuccess" xml:space="preserve">
     <value>Учётная запись удалена</value>
   </data>
-  <data name="ErrorAccountDelete" xml:space="preserve">
-    <value>Ошибка удаления аккаунта: {0}</value>
+  <data name="ExitDeleteAccountAsync" xml:space="preserve">
+    <value>Выход из DeleteAccountAsync.</value>
   </data>
-  <data name="SearchHistoryLoaded" xml:space="preserve">
-    <value>История поиска загружена</value>
+  <data name="DeleteAccountSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в DeleteAccountAsync.</value>
   </data>
-  <data name="ErrorLoadSymptoms" xml:space="preserve">
+
+  <!-- WebView_NavigationCompleted -->
+  <data name="EnterNavigationCompleted" xml:space="preserve">
+    <value>Вход в WebView_NavigationCompleted с успешным статусом: {0}</value>
+  </data>
+  <data name="NavigationCompletedSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в WebView_NavigationCompleted.</value>
+  </data>
+  <data name="ExitNavigationCompleted" xml:space="preserve">
+    <value>Выход из WebView_NavigationCompleted.</value>
+  </data>
+
+  <!-- GenerateSalt -->
+  <data name="EnterGenerateSalt" xml:space="preserve">
+    <value>Вход в GenerateSalt.</value>
+  </data>
+  <data name="SaltGenerated" xml:space="preserve">
+    <value>Сгенерирована соль с длиной: {0}</value>
+  </data>
+  <data name="ExitGenerateSalt" xml:space="preserve">
+    <value>Выход из GenerateSalt.</value>
+  </data>
+
+  <!-- HashPassword -->
+  <data name="EnterHashPassword" xml:space="preserve">
+    <value>Вход в HashPassword.</value>
+  </data>
+  <data name="HashPasswordCompleted" xml:space="preserve">
+    <value>Пароль захеширован. Длина результата: {0}</value>
+  </data>
+  <data name="ExitHashPassword" xml:space="preserve">
+    <value>Выход из HashPassword.</value>
+  </data>
+
+  <!-- Отправка сообщений в WebView -->
+  <data name="SendingErrorMessage" xml:space="preserve">
+    <value>Отправка сообщения об ошибке в WebView: {0}</value>
+  </data>
+  <data name="SendingSuccessMessage" xml:space="preserve">
+    <value>Отправка сообщения об успешной операции в WebView: {0}</value>
+  </data>
+
+  <!-- LoadUserCabinet -->
+  <data name="EnterLoadUserCabinet" xml:space="preserve">
+    <value>Вход в LoadUserCabinet.</value>
+  </data>
+  <data name="UserCabinetLoaded" xml:space="preserve">
+    <value>Переход на страницу кабинета пользователя.</value>
+  </data>
+  <data name="ExitLoadUserCabinet" xml:space="preserve">
+    <value>Выход из LoadUserCabinet.</value>
+  </data>
+
+  <!-- HandleGetSymptoms -->
+  <data name="EnterHandleGetSymptoms" xml:space="preserve">
+    <value>Вход в HandleGetSymptoms для системы: {0}</value>
+  </data>
+  <data name="SymptomsRetrieved" xml:space="preserve">
+    <value>Получено {0} симптомов для системы: {1}</value>
+  </data>
+  <data name="ExitHandleGetSymptoms" xml:space="preserve">
+    <value>Выход из HandleGetSymptoms для системы: {0}</value>
+  </data>
+  <data name="ErrorLoadingSymptoms" xml:space="preserve">
     <value>Ошибка загрузки симптомов: {0}</value>
   </data>
-  <data name="ErrorDiagnosis" xml:space="preserve">
+
+  <!-- HandleDiagnose -->
+  <data name="EnterHandleDiagnose" xml:space="preserve">
+    <value>Вход в HandleDiagnose с {0} выбранными симптомами.</value>
+  </data>
+  <data name="NewSearchHistoryCreated" xml:space="preserve">
+    <value>Создана новая запись истории поиска с Id: {0}</value>
+  </data>
+  <data name="AddedSymptomToHistory" xml:space="preserve">
+    <value>Добавлен симптом {0} в историю поиска {1}</value>
+  </data>
+  <data name="DiagnosesRetrieved" xml:space="preserve">
+    <value>Получено {0} болезней для диагностики.</value>
+  </data>
+  <data name="DiagnosisComplete" xml:space="preserve">
+    <value>Диагностика выполнена. Найдено {0} совпадающих результатов.</value>
+  </data>
+  <data name="ExitHandleDiagnose" xml:space="preserve">
+    <value>Выход из HandleDiagnose.</value>
+  </data>
+  <data name="ErrorDiagnose" xml:space="preserve">
     <value>Ошибка диагностики: {0}</value>
+  </data>
+
+  <!-- LogoutAsync -->
+  <data name="EnterLogoutAsync" xml:space="preserve">
+    <value>Вход в LogoutAsync для пользователя с Id: {0}</value>
+  </data>
+  <data name="UserLoggedOutInfo" xml:space="preserve">
+    <value>Пользователь с Id {0} вышел из системы.</value>
+  </data>
+  <data name="ExitLogoutAsync" xml:space="preserve">
+    <value>Выход из LogoutAsync.</value>
+  </data>
+  <data name="LogoutSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в LogoutAsync.</value>
+  </data>
+
+  <!-- HandleGetDiseaseList -->
+  <data name="EnterHandleGetDiseaseList" xml:space="preserve">
+    <value>Вход в HandleGetDiseaseList.</value>
+  </data>
+  <data name="DiseasesRetrieved" xml:space="preserve">
+    <value>Получено {0} болезней.</value>
+  </data>
+  <data name="ExitHandleGetDiseaseList" xml:space="preserve">
+    <value>Выход из HandleGetDiseaseList.</value>
+  </data>
+  <data name="HandleGetDiseaseListSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в HandleGetDiseaseList.</value>
+  </data>
+  <data name="ErrorGetDiseaseList" xml:space="preserve">
+    <value>Ошибка при получении списка болезней: {0}</value>
+  </data>
+
+  <!-- HandleGetSymptomList -->
+  <data name="EnterHandleGetSymptomList" xml:space="preserve">
+    <value>Вход в HandleGetSymptomList.</value>
+  </data>
+  <data name="SymptomsRetrievedCount" xml:space="preserve">
+    <value>Получено {0} симптомов.</value>
+  </data>
+  <data name="ExitHandleGetSymptomList" xml:space="preserve">
+    <value>Выход из HandleGetSymptomList.</value>
+  </data>
+  <data name="HandleGetSymptomListSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в HandleGetSymptomList.</value>
+  </data>
+  <data name="ErrorGetSymptomList" xml:space="preserve">
+    <value>Ошибка при получении списка симптомов: {0}</value>
+  </data>
+
+  <!-- HandleAddOrUpdateDisease -->
+  <data name="EnterHandleAddOrUpdateDisease" xml:space="preserve">
+    <value>Вход в HandleAddOrUpdateDisease. isUpdate: {0}</value>
+  </data>
+  <data name="UpdatingDisease" xml:space="preserve">
+    <value>Обновление существующей болезни с Id: {0}</value>
+  </data>
+  <data name="AddingDisease" xml:space="preserve">
+    <value>Добавление новой болезни с Id: {0}</value>
+  </data>
+  <data name="RelatedSymptomDisease" xml:space="preserve">
+    <value>Связан симптом {0} с болезнью {1}</value>
+  </data>
+  <data name="DiseaseSaved" xml:space="preserve">
+    <value>Болезнь успешно сохранена.</value>
+  </data>
+  <data name="ExitHandleAddOrUpdateDisease" xml:space="preserve">
+    <value>Выход из HandleAddOrUpdateDisease.</value>
+  </data>
+  <data name="HandleAddOrUpdateDiseaseSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в HandleAddOrUpdateDisease.</value>
+  </data>
+  <data name="ErrorSaveDisease" xml:space="preserve">
+    <value>Ошибка при сохранении болезни: {0}</value>
+  </data>
+
+  <!-- HandleDeleteDisease -->
+  <data name="EnterHandleDeleteDisease" xml:space="preserve">
+    <value>Вход в HandleDeleteDisease.</value>
+  </data>
+  <data name="AttemptDeleteDisease" xml:space="preserve">
+    <value>Попытка удалить болезнь с Id: {0}</value>
+  </data>
+  <data name="DiseaseNotFound" xml:space="preserve">
+    <value>Болезнь не найдена с Id: {0}</value>
+  </data>
+  <data name="DiseaseDeleted" xml:space="preserve">
+    <value>Болезнь удалена.</value>
+  </data>
+  <data name="ExitHandleDeleteDisease" xml:space="preserve">
+    <value>Выход из HandleDeleteDisease.</value>
+  </data>
+  <data name="HandleDeleteDiseaseSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в HandleDeleteDisease.</value>
+  </data>
+  <data name="ErrorDeleteDisease" xml:space="preserve">
+    <value>Ошибка при удалении болезни: {0}</value>
+  </data>
+
+  <!-- HandleAddOrUpdateSymptom -->
+  <data name="EnterHandleAddOrUpdateSymptom" xml:space="preserve">
+    <value>Вход в HandleAddOrUpdateSymptom. isUpdate: {0}</value>
+  </data>
+  <data name="UpdatingSymptom" xml:space="preserve">
+    <value>Обновление существующего симптома с Id: {0}</value>
+  </data>
+  <data name="AddingSymptom" xml:space="preserve">
+    <value>Добавление нового симптома с Id: {0}</value>
+  </data>
+  <data name="RelatedSymptomSymptom" xml:space="preserve">
+    <value>Связан симптом {0} с болезнью {1}</value>
+  </data>
+  <data name="SymptomSaved" xml:space="preserve">
+    <value>Симптом успешно сохранён.</value>
+  </data>
+  <data name="ExitHandleAddOrUpdateSymptom" xml:space="preserve">
+    <value>Выход из HandleAddOrUpdateSymptom.</value>
+  </data>
+  <data name="HandleAddOrUpdateSymptomSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в HandleAddOrUpdateSymptom.</value>
+  </data>
+  <data name="ErrorSaveSymptom" xml:space="preserve">
+    <value>Ошибка при сохранении симптома: {0}</value>
+  </data>
+
+  <!-- HandleDeleteSymptom -->
+  <data name="EnterHandleDeleteSymptom" xml:space="preserve">
+    <value>Вход в HandleDeleteSymptom.</value>
+  </data>
+  <data name="AttemptDeleteSymptom" xml:space="preserve">
+    <value>Попытка удалить симптом с Id: {0}</value>
+  </data>
+  <data name="SymptomNotFound" xml:space="preserve">
+    <value>Симптом не найден с Id: {0}</value>
+  </data>
+  <data name="SymptomDeleted" xml:space="preserve">
+    <value>Симптом удалён.</value>
+  </data>
+  <data name="ExitHandleDeleteSymptom" xml:space="preserve">
+    <value>Выход из HandleDeleteSymptom.</value>
+  </data>
+  <data name="HandleDeleteSymptomSemaphoreReleased" xml:space="preserve">
+    <value>Семафор освобожден в HandleDeleteSymptom.</value>
+  </data>
+  <data name="ErrorDeleteSymptom" xml:space="preserve">
+    <value>Ошибка при удалении симптома: {0}</value>
   </data>
 </root>

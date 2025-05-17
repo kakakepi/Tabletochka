@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/Admin.css">
 </head>
-
 <body>
     <header>
         <div class="avatar-top" onclick="togglePanel()">
@@ -18,12 +16,12 @@
     </header>
 
     <div class="overlay" onclick="togglePanel()"></div>
+
     <div class="side-panel" id="sidePanel">
         <div class="menu-title">Меню</div>
         <div class="menu-item"><a href="Main.html">Главная страница</a></div>
         <div class="menu-item"><a href="Cabinet.html">Личный кабинет</a></div>
         <div class="menu-item"><a href="History.html">История поиска</a></div>
-
         <div class="menu-item" onclick="toggleSubmenu('langSubmenu')">Язык</div>
         <div class="submenu" id="langSubmenu">
             <div>Русский</div>
@@ -55,10 +53,11 @@
                 <label for="diseaseSymptomIds">Связанные симптомы (ID, через запятую):</label>
                 <input type="text" id="diseaseSymptomIds" placeholder="например: id1,id2,...">
                 <div class="button-group">
-                    <button type="button" id="saveDiseaseBtn" onclick="saveDisease()">Сохранить</button>
-                    <button type="button" id="resetDiseaseBtn" onclick="resetDiseaseForm()">Сбросить</button>
+                    <button type="button" onclick="saveDisease()">Сохранить</button>
+                    <button type="button" onclick="resetDiseaseForm()">Сбросить</button>
                 </div>
             </form>
+
             <h2>Список болезней</h2>
             <div id="diseaseList">
             </div>
@@ -72,12 +71,12 @@
                 <input type="text" id="symptomName" required placeholder="Введите название">
                 <label for="symptomDiseaseId">ID болезни:</label>
                 <input type="text" id="symptomDiseaseId" required placeholder="Введите ID болезни">
-
                 <div class="button-group">
-                    <button type="button" id="saveSymptomBtn" onclick="saveSymptom()">Сохранить</button>
-                    <button type="button" id="resetSymptomBtn" onclick="resetSymptomForm()">Сбросить</button>
+                    <button type="button" onclick="saveSymptom()">Сохранить</button>
+                    <button type="button" onclick="resetSymptomForm()">Сбросить</button>
                 </div>
             </form>
+
             <h2>Список симптомов</h2>
             <div id="symptomList">
             </div>
@@ -86,5 +85,4 @@
 
     <script src="js/Admin.js"></script>
 </body>
-
 </html>

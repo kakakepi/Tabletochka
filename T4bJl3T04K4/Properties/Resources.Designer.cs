@@ -39,7 +39,7 @@ namespace T4bJl3T04K4.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SportEventCalendar.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("T4bJl3T04K4.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,121 +61,1226 @@ namespace T4bJl3T04K4.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавьте изображение!.
+        ///   Looks up a localized string similar to Учётная запись удалена.
         /// </summary>
-        internal static string addImage {
+        internal static string AccountDeletedSuccess {
             get {
-                return ResourceManager.GetString("addImage", resourceCulture);
+                return ResourceManager.GetString("AccountDeletedSuccess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы уверены, что хотите отменить создание события? 
-        ///Введённые данные будут потеряны..
+        ///   Looks up a localized string similar to Добавлен симптом {0} в историю поиска {1}.
         /// </summary>
-        internal static string cancelCreating {
+        internal static string AddedSymptomToHistory {
             get {
-                return ResourceManager.GetString("cancelCreating", resourceCulture);
+                return ResourceManager.GetString("AddedSymptomToHistory", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Строка подключения не может быть пустой..
+        ///   Looks up a localized string similar to Добавление новой болезни с Id: {0}.
         /// </summary>
-        internal static string conString {
+        internal static string AddingDisease {
             get {
-                return ResourceManager.GetString("conString", resourceCulture);
+                return ResourceManager.GetString("AddingDisease", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Даты выбраны некорректно!.
+        ///   Looks up a localized string similar to Добавление нового симптома с Id: {0}.
         /// </summary>
-        internal static string dateError {
+        internal static string AddingSymptom {
             get {
-                return ResourceManager.GetString("dateError", resourceCulture);
+                return ResourceManager.GetString("AddingSymptom", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы действительно хотите удалить это событие? 
-        ///Это действие необратимо..
+        ///   Looks up a localized string similar to Попытка удалить болезнь с Id: {0}.
         /// </summary>
-        internal static string deletingmessage {
+        internal static string AttemptDeleteDisease {
             get {
-                return ResourceManager.GetString("deletingmessage", resourceCulture);
+                return ResourceManager.GetString("AttemptDeleteDisease", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка.
+        ///   Looks up a localized string similar to Попытка удалить симптом с Id: {0}.
         /// </summary>
-        internal static string errorTitle {
+        internal static string AttemptDeleteSymptom {
             get {
-                return ResourceManager.GetString("errorTitle", resourceCulture);
+                return ResourceManager.GetString("AttemptDeleteSymptom", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Файл отсутсвует!.
+        ///   Looks up a localized string similar to Семафор освобожден в DeleteAccountAsync..
         /// </summary>
-        internal static string fileDoesntExist {
+        internal static string DeleteAccountSemaphoreReleased {
             get {
-                return ResourceManager.GetString("fileDoesntExist", resourceCulture);
+                return ResourceManager.GetString("DeleteAccountSemaphoreReleased", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Заполните все поля!.
+        ///   Looks up a localized string similar to Семафор освобожден в DeletePhotoAsync..
         /// </summary>
-        internal static string fillInAllFields {
+        internal static string DeletePhotoSemaphoreReleased {
             get {
-                return ResourceManager.GetString("fillInAllFields", resourceCulture);
+                return ResourceManager.GetString("DeletePhotoSemaphoreReleased", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Заполните поле название!.
+        ///   Looks up a localized string similar to Получено {0} болезней для диагностики..
         /// </summary>
-        internal static string fillName {
+        internal static string DiagnosesRetrieved {
             get {
-                return ResourceManager.GetString("fillName", resourceCulture);
+                return ResourceManager.GetString("DiagnosesRetrieved", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выбранный файл не является допустимым изображением!.
+        ///   Looks up a localized string similar to Диагностика выполнена. Найдено {0} совпадающих результатов..
         /// </summary>
-        internal static string imageError {
+        internal static string DiagnosisComplete {
             get {
-                return ResourceManager.GetString("imageError", resourceCulture);
+                return ResourceManager.GetString("DiagnosisComplete", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка при создании отчета.
+        ///   Looks up a localized string similar to Болезнь удалена..
         /// </summary>
-        internal static string reportCreatingError {
+        internal static string DiseaseDeleted {
             get {
-                return ResourceManager.GetString("reportCreatingError", resourceCulture);
+                return ResourceManager.GetString("DiseaseDeleted", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выберите спорт!.
+        ///   Looks up a localized string similar to Болезнь не найдена с Id: {0}.
         /// </summary>
-        internal static string selectSport {
+        internal static string DiseaseNotFound {
             get {
-                return ResourceManager.GetString("selectSport", resourceCulture);
+                return ResourceManager.GetString("DiseaseNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выберите хотя бы одну команду!.
+        ///   Looks up a localized string similar to Болезнь успешно сохранена..
         /// </summary>
-        internal static string selectTeams {
+        internal static string DiseaseSaved {
             get {
-                return ResourceManager.GetString("selectTeams", resourceCulture);
+                return ResourceManager.GetString("DiseaseSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено {0} болезней..
+        /// </summary>
+        internal static string DiseasesRetrieved {
+            get {
+                return ResourceManager.GetString("DiseasesRetrieved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя пользователя не может быть пустым.
+        /// </summary>
+        internal static string EmptyUsername {
+            get {
+                return ResourceManager.GetString("EmptyUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в конструктор Tabletochka..
+        /// </summary>
+        internal static string EnterConstructor {
+            get {
+                return ResourceManager.GetString("EnterConstructor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в DeleteAccountAsync для пользователя с Id: {0}.
+        /// </summary>
+        internal static string EnterDeleteAccountAsync {
+            get {
+                return ResourceManager.GetString("EnterDeleteAccountAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в DeletePhotoAsync..
+        /// </summary>
+        internal static string EnterDeletePhotoAsync {
+            get {
+                return ResourceManager.GetString("EnterDeletePhotoAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в GenerateSalt..
+        /// </summary>
+        internal static string EnterGenerateSalt {
+            get {
+                return ResourceManager.GetString("EnterGenerateSalt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в метод GetSearchHistoryAsync..
+        /// </summary>
+        internal static string EnterGetSearchHistoryAsync {
+            get {
+                return ResourceManager.GetString("EnterGetSearchHistoryAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleAddOrUpdateDisease. isUpdate: {0}.
+        /// </summary>
+        internal static string EnterHandleAddOrUpdateDisease {
+            get {
+                return ResourceManager.GetString("EnterHandleAddOrUpdateDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleAddOrUpdateSymptom. isUpdate: {0}.
+        /// </summary>
+        internal static string EnterHandleAddOrUpdateSymptom {
+            get {
+                return ResourceManager.GetString("EnterHandleAddOrUpdateSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleDeleteDisease..
+        /// </summary>
+        internal static string EnterHandleDeleteDisease {
+            get {
+                return ResourceManager.GetString("EnterHandleDeleteDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleDeleteSymptom..
+        /// </summary>
+        internal static string EnterHandleDeleteSymptom {
+            get {
+                return ResourceManager.GetString("EnterHandleDeleteSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleDiagnose с {0} выбранными симптомами..
+        /// </summary>
+        internal static string EnterHandleDiagnose {
+            get {
+                return ResourceManager.GetString("EnterHandleDiagnose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleGetDiseaseList..
+        /// </summary>
+        internal static string EnterHandleGetDiseaseList {
+            get {
+                return ResourceManager.GetString("EnterHandleGetDiseaseList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleGetSymptomList..
+        /// </summary>
+        internal static string EnterHandleGetSymptomList {
+            get {
+                return ResourceManager.GetString("EnterHandleGetSymptomList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HandleGetSymptoms для системы: {0}.
+        /// </summary>
+        internal static string EnterHandleGetSymptoms {
+            get {
+                return ResourceManager.GetString("EnterHandleGetSymptoms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в HashPassword..
+        /// </summary>
+        internal static string EnterHashPassword {
+            get {
+                return ResourceManager.GetString("EnterHashPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в метод InitializeWebViewAsync..
+        /// </summary>
+        internal static string EnterInitializeWebViewAsync {
+            get {
+                return ResourceManager.GetString("EnterInitializeWebViewAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в LoadUserCabinet..
+        /// </summary>
+        internal static string EnterLoadUserCabinet {
+            get {
+                return ResourceManager.GetString("EnterLoadUserCabinet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в LoginAsync для пользователя: {0}.
+        /// </summary>
+        internal static string EnterLoginAsync {
+            get {
+                return ResourceManager.GetString("EnterLoginAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в LogoutAsync для пользователя с Id: {0}.
+        /// </summary>
+        internal static string EnterLogoutAsync {
+            get {
+                return ResourceManager.GetString("EnterLogoutAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в WebView_NavigationCompleted с успешным статусом: {0}.
+        /// </summary>
+        internal static string EnterNavigationCompleted {
+            get {
+                return ResourceManager.GetString("EnterNavigationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в RegisterAsync для пользователя: {0}.
+        /// </summary>
+        internal static string EnterRegisterAsync {
+            get {
+                return ResourceManager.GetString("EnterRegisterAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в UpdateProfileAsync для пользователя: {0}.
+        /// </summary>
+        internal static string EnterUpdateProfileAsync {
+            get {
+                return ResourceManager.GetString("EnterUpdateProfileAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в UploadPhotoAsync. Длина изображения: {0}.
+        /// </summary>
+        internal static string EnterUploadPhotoAsync {
+            get {
+                return ResourceManager.GetString("EnterUploadPhotoAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вход в WebView_WebMessageReceived..
+        /// </summary>
+        internal static string EnterWebMessageReceived {
+            get {
+                return ResourceManager.GetString("EnterWebMessageReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при удалении болезни: {0}.
+        /// </summary>
+        internal static string ErrorDeleteDisease {
+            get {
+                return ResourceManager.GetString("ErrorDeleteDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при удалении симптома: {0}.
+        /// </summary>
+        internal static string ErrorDeleteSymptom {
+            get {
+                return ResourceManager.GetString("ErrorDeleteSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка диагностики: {0}.
+        /// </summary>
+        internal static string ErrorDiagnose {
+            get {
+                return ResourceManager.GetString("ErrorDiagnose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при получении списка болезней: {0}.
+        /// </summary>
+        internal static string ErrorGetDiseaseList {
+            get {
+                return ResourceManager.GetString("ErrorGetDiseaseList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при получении списка симптомов: {0}.
+        /// </summary>
+        internal static string ErrorGetSymptomList {
+            get {
+                return ResourceManager.GetString("ErrorGetSymptomList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при инициализации WebView2..
+        /// </summary>
+        internal static string ErrorInitializingWebView {
+            get {
+                return ResourceManager.GetString("ErrorInitializingWebView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка загрузки симптомов: {0}.
+        /// </summary>
+        internal static string ErrorLoadingSymptoms {
+            get {
+                return ResourceManager.GetString("ErrorLoadingSymptoms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при сохранении болезни: {0}.
+        /// </summary>
+        internal static string ErrorSaveDisease {
+            get {
+                return ResourceManager.GetString("ErrorSaveDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка при сохранении симптома: {0}.
+        /// </summary>
+        internal static string ErrorSaveSymptom {
+            get {
+                return ResourceManager.GetString("ErrorSaveSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из конструктора Tabletochka..
+        /// </summary>
+        internal static string ExitConstructor {
+            get {
+                return ResourceManager.GetString("ExitConstructor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из DeleteAccountAsync..
+        /// </summary>
+        internal static string ExitDeleteAccountAsync {
+            get {
+                return ResourceManager.GetString("ExitDeleteAccountAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из DeletePhotoAsync..
+        /// </summary>
+        internal static string ExitDeletePhotoAsync {
+            get {
+                return ResourceManager.GetString("ExitDeletePhotoAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из GenerateSalt..
+        /// </summary>
+        internal static string ExitGenerateSalt {
+            get {
+                return ResourceManager.GetString("ExitGenerateSalt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из метода GetSearchHistoryAsync..
+        /// </summary>
+        internal static string ExitGetSearchHistoryAsync {
+            get {
+                return ResourceManager.GetString("ExitGetSearchHistoryAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleAddOrUpdateDisease..
+        /// </summary>
+        internal static string ExitHandleAddOrUpdateDisease {
+            get {
+                return ResourceManager.GetString("ExitHandleAddOrUpdateDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleAddOrUpdateSymptom..
+        /// </summary>
+        internal static string ExitHandleAddOrUpdateSymptom {
+            get {
+                return ResourceManager.GetString("ExitHandleAddOrUpdateSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleDeleteDisease..
+        /// </summary>
+        internal static string ExitHandleDeleteDisease {
+            get {
+                return ResourceManager.GetString("ExitHandleDeleteDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleDeleteSymptom..
+        /// </summary>
+        internal static string ExitHandleDeleteSymptom {
+            get {
+                return ResourceManager.GetString("ExitHandleDeleteSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleDiagnose..
+        /// </summary>
+        internal static string ExitHandleDiagnose {
+            get {
+                return ResourceManager.GetString("ExitHandleDiagnose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleGetDiseaseList..
+        /// </summary>
+        internal static string ExitHandleGetDiseaseList {
+            get {
+                return ResourceManager.GetString("ExitHandleGetDiseaseList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleGetSymptomList..
+        /// </summary>
+        internal static string ExitHandleGetSymptomList {
+            get {
+                return ResourceManager.GetString("ExitHandleGetSymptomList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HandleGetSymptoms для системы: {0}.
+        /// </summary>
+        internal static string ExitHandleGetSymptoms {
+            get {
+                return ResourceManager.GetString("ExitHandleGetSymptoms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из HashPassword..
+        /// </summary>
+        internal static string ExitHashPassword {
+            get {
+                return ResourceManager.GetString("ExitHashPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из метода InitializeWebViewAsync..
+        /// </summary>
+        internal static string ExitInitializeWebViewAsync {
+            get {
+                return ResourceManager.GetString("ExitInitializeWebViewAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из LoadUserCabinet..
+        /// </summary>
+        internal static string ExitLoadUserCabinet {
+            get {
+                return ResourceManager.GetString("ExitLoadUserCabinet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из LoginAsync для пользователя: {0}.
+        /// </summary>
+        internal static string ExitLoginAsync {
+            get {
+                return ResourceManager.GetString("ExitLoginAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из LogoutAsync..
+        /// </summary>
+        internal static string ExitLogoutAsync {
+            get {
+                return ResourceManager.GetString("ExitLogoutAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из WebView_NavigationCompleted..
+        /// </summary>
+        internal static string ExitNavigationCompleted {
+            get {
+                return ResourceManager.GetString("ExitNavigationCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из RegisterAsync для пользователя: {0}.
+        /// </summary>
+        internal static string ExitRegisterAsync {
+            get {
+                return ResourceManager.GetString("ExitRegisterAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из UpdateProfileAsync для пользователя: {0}.
+        /// </summary>
+        internal static string ExitUpdateProfileAsync {
+            get {
+                return ResourceManager.GetString("ExitUpdateProfileAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из UploadPhotoAsync..
+        /// </summary>
+        internal static string ExitUploadPhotoAsync {
+            get {
+                return ResourceManager.GetString("ExitUploadPhotoAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход из WebView_WebMessageReceived..
+        /// </summary>
+        internal static string ExitWebMessageReceived {
+            get {
+                return ResourceManager.GetString("ExitWebMessageReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Форма Tabletochka инициализирована..
+        /// </summary>
+        internal static string FormInitialized {
+            get {
+                return ResourceManager.GetString("FormInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в HandleAddOrUpdateDisease..
+        /// </summary>
+        internal static string HandleAddOrUpdateDiseaseSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("HandleAddOrUpdateDiseaseSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в HandleAddOrUpdateSymptom..
+        /// </summary>
+        internal static string HandleAddOrUpdateSymptomSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("HandleAddOrUpdateSymptomSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в HandleDeleteDisease..
+        /// </summary>
+        internal static string HandleDeleteDiseaseSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("HandleDeleteDiseaseSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в HandleDeleteSymptom..
+        /// </summary>
+        internal static string HandleDeleteSymptomSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("HandleDeleteSymptomSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в HandleGetDiseaseList..
+        /// </summary>
+        internal static string HandleGetDiseaseListSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("HandleGetDiseaseListSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в HandleGetSymptomList..
+        /// </summary>
+        internal static string HandleGetSymptomListSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("HandleGetSymptomListSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль захеширован. Длина результата: {0}.
+        /// </summary>
+        internal static string HashPasswordCompleted {
+            get {
+                return ResourceManager.GetString("HashPasswordCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль должен быть не менее 8 символов.
+        /// </summary>
+        internal static string InsufficientPasswordLength {
+            get {
+                return ResourceManager.GetString("InsufficientPasswordLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверный формат даты рождения в UpdateProfileAsync для пользователя: {0}.
+        /// </summary>
+        internal static string InvalidBirthdateFormat {
+            get {
+                return ResourceManager.GetString("InvalidBirthdateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь {0} успешно авторизовался..
+        /// </summary>
+        internal static string LoginSuccess {
+            get {
+                return ResourceManager.GetString("LoginSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в LogoutAsync..
+        /// </summary>
+        internal static string LogoutSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("LogoutSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в WebView_NavigationCompleted..
+        /// </summary>
+        internal static string NavigationCompletedSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("NavigationCompletedSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Создана новая запись истории поиска с Id: {0}.
+        /// </summary>
+        internal static string NewSearchHistoryCreated {
+            get {
+                return ResourceManager.GetString("NewSearchHistoryCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароли не совпадают.
+        /// </summary>
+        internal static string PasswordsNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordsNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль обновлен в UpdateProfileAsync для пользователя: {0}.
+        /// </summary>
+        internal static string PasswordUpdated {
+            get {
+                return ResourceManager.GetString("PasswordUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;login&apos;..
+        /// </summary>
+        internal static string ProcessActionLogin {
+            get {
+                return ResourceManager.GetString("ProcessActionLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;register&apos;..
+        /// </summary>
+        internal static string ProcessActionRegister {
+            get {
+                return ResourceManager.GetString("ProcessActionRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;addDisease&apos;..
+        /// </summary>
+        internal static string ProcessAddDisease {
+            get {
+                return ResourceManager.GetString("ProcessAddDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;addSymptom&apos;..
+        /// </summary>
+        internal static string ProcessAddSymptom {
+            get {
+                return ResourceManager.GetString("ProcessAddSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;deleteAccount&apos;..
+        /// </summary>
+        internal static string ProcessDeleteAccount {
+            get {
+                return ResourceManager.GetString("ProcessDeleteAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;deleteDisease&apos;..
+        /// </summary>
+        internal static string ProcessDeleteDisease {
+            get {
+                return ResourceManager.GetString("ProcessDeleteDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;deletePhoto&apos;..
+        /// </summary>
+        internal static string ProcessDeletePhoto {
+            get {
+                return ResourceManager.GetString("ProcessDeletePhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;deleteSymptom&apos;..
+        /// </summary>
+        internal static string ProcessDeleteSymptom {
+            get {
+                return ResourceManager.GetString("ProcessDeleteSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;diagnose&apos;..
+        /// </summary>
+        internal static string ProcessDiagnose {
+            get {
+                return ResourceManager.GetString("ProcessDiagnose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;getDiseaseList&apos;..
+        /// </summary>
+        internal static string ProcessGetDiseaseList {
+            get {
+                return ResourceManager.GetString("ProcessGetDiseaseList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;getSearchHistory&apos;..
+        /// </summary>
+        internal static string ProcessGetSearchHistory {
+            get {
+                return ResourceManager.GetString("ProcessGetSearchHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;getSymptomList&apos;..
+        /// </summary>
+        internal static string ProcessGetSymptomList {
+            get {
+                return ResourceManager.GetString("ProcessGetSymptomList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;getSymptoms&apos;..
+        /// </summary>
+        internal static string ProcessGetSymptoms {
+            get {
+                return ResourceManager.GetString("ProcessGetSymptoms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;logout&apos;..
+        /// </summary>
+        internal static string ProcessLogout {
+            get {
+                return ResourceManager.GetString("ProcessLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;updateDisease&apos;..
+        /// </summary>
+        internal static string ProcessUpdateDisease {
+            get {
+                return ResourceManager.GetString("ProcessUpdateDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;updateProfile&apos;..
+        /// </summary>
+        internal static string ProcessUpdateProfile {
+            get {
+                return ResourceManager.GetString("ProcessUpdateProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;updateSymptom&apos;..
+        /// </summary>
+        internal static string ProcessUpdateSymptom {
+            get {
+                return ResourceManager.GetString("ProcessUpdateSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обработка действия &apos;uploadPhoto&apos;..
+        /// </summary>
+        internal static string ProcessUploadPhoto {
+            get {
+                return ResourceManager.GetString("ProcessUploadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Профиль пользователя {0} успешно обновлен..
+        /// </summary>
+        internal static string ProfileUpdated {
+            get {
+                return ResourceManager.GetString("ProfileUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь не найден в UpdateProfileAsync для currentUserId: {0}.
+        /// </summary>
+        internal static string ProfileUserNotFound {
+            get {
+                return ResourceManager.GetString("ProfileUserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено действие: {0}.
+        /// </summary>
+        internal static string ReceivedAction {
+            get {
+                return ResourceManager.GetString("ReceivedAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено JSON сообщение: {0}.
+        /// </summary>
+        internal static string ReceivedJsonMessage {
+            get {
+                return ResourceManager.GetString("ReceivedJsonMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено сообщение для входа. Пользователь: {0}.
+        /// </summary>
+        internal static string ReceivedLoginMessage {
+            get {
+                return ResourceManager.GetString("ReceivedLoginMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено сообщение для регистрации. Новый пользователь: {0}.
+        /// </summary>
+        internal static string ReceivedRegisterMessage {
+            get {
+                return ResourceManager.GetString("ReceivedRegisterMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регистрация прошла успешно. Ваш идентификатор: {0}.
+        /// </summary>
+        internal static string RegistrationSuccess {
+            get {
+                return ResourceManager.GetString("RegistrationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Связан симптом {0} с болезнью {1}.
+        /// </summary>
+        internal static string RelatedSymptomDisease {
+            get {
+                return ResourceManager.GetString("RelatedSymptomDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Связан симптом {0} с болезнью {1}.
+        /// </summary>
+        internal static string RelatedSymptomSymptom {
+            get {
+                return ResourceManager.GetString("RelatedSymptomSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сгенерирована соль с длиной: {0}.
+        /// </summary>
+        internal static string SaltGenerated {
+            get {
+                return ResourceManager.GetString("SaltGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено {0} записей истории поиска для пользователя {1}..
+        /// </summary>
+        internal static string SearchHistoryCount {
+            get {
+                return ResourceManager.GetString("SearchHistoryCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправка сообщения об ошибке в WebView: {0}.
+        /// </summary>
+        internal static string SendingErrorMessage {
+            get {
+                return ResourceManager.GetString("SendingErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправка сообщения об успешной операции в WebView: {0}.
+        /// </summary>
+        internal static string SendingSuccessMessage {
+            get {
+                return ResourceManager.GetString("SendingSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Симптом удалён..
+        /// </summary>
+        internal static string SymptomDeleted {
+            get {
+                return ResourceManager.GetString("SymptomDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Симптом не найден с Id: {0}.
+        /// </summary>
+        internal static string SymptomNotFound {
+            get {
+                return ResourceManager.GetString("SymptomNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Симптом успешно сохранён..
+        /// </summary>
+        internal static string SymptomSaved {
+            get {
+                return ResourceManager.GetString("SymptomSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено {0} симптомов для системы: {1}.
+        /// </summary>
+        internal static string SymptomsRetrieved {
+            get {
+                return ResourceManager.GetString("SymptomsRetrieved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено {0} симптомов..
+        /// </summary>
+        internal static string SymptomsRetrievedCount {
+            get {
+                return ResourceManager.GetString("SymptomsRetrievedCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Получено неизвестное действие: {0}.
+        /// </summary>
+        internal static string UnknownAction {
+            get {
+                return ResourceManager.GetString("UnknownAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обновление существующей болезни с Id: {0}.
+        /// </summary>
+        internal static string UpdatingDisease {
+            get {
+                return ResourceManager.GetString("UpdatingDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обновление существующего симптома с Id: {0}.
+        /// </summary>
+        internal static string UpdatingSymptom {
+            get {
+                return ResourceManager.GetString("UpdatingSymptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор освобожден в UploadPhotoAsync..
+        /// </summary>
+        internal static string UploadPhotoSemaphoreReleased {
+            get {
+                return ResourceManager.GetString("UploadPhotoSemaphoreReleased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь с таким именем уже существует.
+        /// </summary>
+        internal static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Переход на страницу кабинета пользователя..
+        /// </summary>
+        internal static string UserCabinetLoaded {
+            get {
+                return ResourceManager.GetString("UserCabinetLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь с Id {0} вышел из системы..
+        /// </summary>
+        internal static string UserLoggedOutInfo {
+            get {
+                return ResourceManager.GetString("UserLoggedOutInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь не найден.
+        /// </summary>
+        internal static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь не найден в DeleteAccountAsync для currentUserId: {0}.
+        /// </summary>
+        internal static string UserNotFoundDeleteAccount {
+            get {
+                return ResourceManager.GetString("UserNotFoundDeleteAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь не найден в DeletePhotoAsync для currentUserId: {0}.
+        /// </summary>
+        internal static string UserNotFoundDeletePhoto {
+            get {
+                return ResourceManager.GetString("UserNotFoundDeletePhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь не найден в UploadPhotoAsync для currentUserId: {0}.
+        /// </summary>
+        internal static string UserNotFoundUploadPhoto {
+            get {
+                return ResourceManager.GetString("UserNotFoundUploadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebView2 успешно инициализирован и загружена страница LoginRegistration.html..
+        /// </summary>
+        internal static string WebViewLoaded {
+            get {
+                return ResourceManager.GetString("WebViewLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверный старый пароль в UpdateProfileAsync для пользователя: {0}.
+        /// </summary>
+        internal static string WrongOldPassword {
+            get {
+                return ResourceManager.GetString("WrongOldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверное имя пользователя или пароль.
+        /// </summary>
+        internal static string WrongPassword {
+            get {
+                return ResourceManager.GetString("WrongPassword", resourceCulture);
             }
         }
     }
